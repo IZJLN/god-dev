@@ -1,0 +1,31 @@
+{
+  "realisations": [
+    {
+      "id": 1,
+      "title": "Mariage de John & Lily",
+      "date": "20 Janvier 2024",
+      "location": "Pezenas",
+      "description": "Un moment unique pour sceller leur histoire.",
+      "image": "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=500&auto=format&fit=crop&q=80",
+      "path": "/evenement/mariage-john-lily"
+    },
+    {
+      "id": 2,
+      "title": "Séminaire IBM",
+      "date": "17 Avril 2024",
+      "location": "Montpellier",
+      "description": "Un rendez-vous stratégique pour façonner demain.",
+      "image": "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&q=80",
+      "path": "/evenement/ibm"
+    },
+    {
+      "id": 3,
+      "title": "Soirée privée",
+      "date": "13 Août 2024",
+      "location": "Gruissan",
+      "description": "Un espace intime pour partager l'instant.",
+      "image": "https://images.unsplash.com/photo-1704564872119-0e6b4ff0d7e7?w=500&auto=format&fit=crop&q=80",
+      "path": "/evenement/soiree-privee-gruissan"
+    }
+  ]
+}

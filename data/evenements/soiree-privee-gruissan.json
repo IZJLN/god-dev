@@ -1,0 +1,54 @@
+{
+  "hero": {
+    "image": "https://images.unsplash.com/photo-1704564872119-0e6b4ff0d7e7?w=1920&auto=format&fit=crop&q=80",
+    "title": "Soirée Privée",
+    "titleAccent": "Gruissan",
+    "date": "13 Août 2024",
+    "location": "Gruissan, Occitanie",
+    "guests": "80 invités",
+    "description": "Une soirée estivale magique au bord du port de Gruissan — cocktails sur mesure, ambiance balnéaire et art du bar sous les étoiles méditerranéennes."
+  },
+  "story": {
+    "eyebrow": "Soirée privée en bord de mer",
+    "title": "L'histoire de la soirée",
+    "paragraphs": [
+      "Le 13 août 2024, sous un ciel d'été embrasé, nous avons orchestré une soirée privée d'exception sur les rives de Gruissan. Quatre-vingts invités réunis au bord de la Méditerranée pour une nuit inoubliable.",
+      "Un bar de plage entièrement habillé aux couleurs de l'hôte accueillait les convives dès leur arrivée. Des cocktails créés sur mesure pour l'occasion valorisaient les saveurs du terroir occitan — thym, lavande, citrus — sublimées par des spiritueux soigneusement sélectionnés.",
+      "Durant huit heures de prestation, notre équipe a veillé à ce que chaque verre raconte l'esprit de la Méditerranée : généreux, solaire et sincère. La soirée s'est prolongée bien au-delà de minuit, bercée par le murmure des vagues et l'effervescence des bulles."
+    ],
+    "image": "https://images.unsplash.com/photo-1561489413-985b06da5bee?w=800&auto=format&fit=crop&q=80",
+    "stats": [
+      { "value": "80", "label": "Invités" },
+      { "value": "Plein Air", "label": "Bord de mer" },
+      { "value": "8h", "label": "de prestation" }
+    ]
+  },
+  "cocktails": [
+    {
+      "name": "Méditerranée",
+      "image": "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=800&auto=format&fit=crop&q=80",
+      "description": "",
+      "ingredients": ["Gin", "Eau de mer", "Citron", "Thym frais", "Tonic"]
+    },
+    {
+      "name": "Coucher de Soleil",
+      "image": "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=800&auto=format&fit=crop&q=80",
+      "description": "",
+      "ingredients": ["Rhum", "Passion", "Orange", "Grenadine", "Ginger beer"]
+    },
+    {
+      "name": "Mistral",
+      "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&auto=format&fit=crop&q=80",
+      "description": "",
+      "ingredients": ["Pastis", "Citron vert", "Menthe", "Eau gazeuse", "Sirop de lavande"]
+    }
+  ],
+  "gallery": [
+    { "src": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&auto=format&fit=crop&q=80", "alt": "Ambiance soirée bord de mer" },
+    { "src": "https://images.unsplash.com/photo-1575444758702-4a6b9222336e?w=800&auto=format&fit=crop&q=80", "alt": "Bar setup Gruissan" },
+    { "src": "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&auto=format&fit=crop&q=80", "alt": "Décoration soirée estivale" },
+    { "src": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=800&auto=format&fit=crop&q=80", "alt": "Cocktail signature méditerranéen" },
+    { "src": "https://images.unsplash.com/photo-1481833761820-0509d3217039?w=800&auto=format&fit=crop&q=80", "alt": "Invités en soirée" },
+    { "src": "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&auto=format&fit=crop&q=80", "alt": "Bar nocturne Gruissan" }
+  ]
+}

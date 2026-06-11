@@ -1,0 +1,54 @@
+{
+  "hero": {
+    "image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+    "title": "Mariage de John",
+    "titleAccent": "& Lily",
+    "date": "20 Janvier 2024",
+    "location": "Pezenas",
+    "guests": "120 invités",
+    "description": "Une cérémonie intime et élégante à Pezenas — un moment unique pour sceller leur histoire autour de cocktails créés spécialement pour eux."
+  },
+  "story": {
+    "eyebrow": "Mariage",
+    "title": "Une histoire d'amour en cocktails",
+    "paragraphs": [
+      "Le 20 janvier 2024, John et Lily ont célébré leur union dans le cadre magnifique de Pezenas. Pour marquer ce moment exceptionnel, ils nous ont confié la création d'une expérience cocktail unique, imaginée pour raconter leur histoire.",
+      "Chaque création a été pensée en écho à leurs souvenirs communs : leurs voyages, leurs saveurs préférées, les instants qui ont forgé leur complicité. Le bar art déco, installé dans la salle de réception, est devenu le cœur vivant de la soirée.",
+      "Pendant toute la nuit, notre équipe a orchestré un service raffiné pour les 120 convives, veillant à ce que chaque verre soit une invitation au plaisir partagé. Une soirée qui restera gravée dans les mémoires."
+    ],
+    "image": "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&auto=format&fit=crop&q=80",
+    "stats": [
+      { "value": "120", "label": "Invités" },
+      { "value": "Pezenas", "label": "Lieu" },
+      { "value": "6h", "label": "de prestation" }
+    ]
+  },
+  "cocktails": [
+    {
+      "name": "Le Roi Soleil",
+      "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "description": "Un cocktail signature à base de champagne, liqueur de fleur de sureau, et essence de rose du jardin",
+      "ingredients": []
+    },
+    {
+      "name": "Marie-Antoinette",
+      "image": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "description": "Gin infusé à la lavande, sirop de violette, et mousse de citron",
+      "ingredients": []
+    },
+    {
+      "name": "Le Grand Trianon",
+      "image": "https://images.unsplash.com/photo-1536935338788-846bb9981813?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "description": "Cognac, liqueur de poire, miel de Versailles, et feuilles d'or",
+      "ingredients": []
+    }
+  ],
+  "gallery": [
+    { "src": "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&auto=format&fit=crop&q=80", "alt": "Cérémonie John & Lily" },
+    { "src": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&auto=format&fit=crop&q=80", "alt": "Décor de mariage" },
+    { "src": "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&auto=format&fit=crop&q=80", "alt": "Ambiance réception" },
+    { "src": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&auto=format&fit=crop&q=80", "alt": "Cocktail signature" },
+    { "src": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&auto=format&fit=crop&q=80", "alt": "Bar art déco" },
+    { "src": "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&auto=format&fit=crop&q=80", "alt": "Soirée de mariage" }
+  ]
+}

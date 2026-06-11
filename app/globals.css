@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ──────────────────────────────────── */
+:root {
+  --gold: #C9A96E;
+  --gold-light: #E8D5B0;
+  --gold-dim: rgba(201, 169, 110, 0.12);
+  --bg-primary: #000000;
+  --bg-dark: #000000;
+  --bg-card: #0A0A0A;
+  --text-warm: #FFFFFF;
+  --font-cormorant: var(--font-cormorant);
+}
+
+/* ─── Font helpers ───────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-cormorant), var(--font-playfair), Georgia, serif;
+}
+.font-label {
+  font-family: var(--font-oswald), sans-serif;
+}
+.font-body {
+  font-family: var(--font-lato), sans-serif;
+}
+
+/* ─── Section tag pattern (@goodolddrinks + line) ────────────── */
+.god-tag {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.god-tag__text {
+  font-family: var(--font-lato), sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+.god-tag__line {
+  flex: 1;
+  max-width: 200px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ─── Editorial display title ────────────────────────────────── */
+.god-title {
+  font-family: var(--font-cormorant), var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  line-height: 0.92;
+  color: #FFFFFF;
+}
+
+/* ─── Chip / tag overlay (used on photos) ────────────────────── */
+.god-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: var(--font-lato), sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+@layer base {
+  html,
+  body {
+    @apply overflow-x-hidden;
+  }
+  body {
+    @apply font-primary bg-black text-white leading-relaxed;
+    font-family: var(--font-lato), sans-serif;
+  }
+}
+
+/* ─── Art Deco Ornament Divider ──────────────────────────────── */
+.deco-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.deco-divider__line {
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.6;
+}
+
+.deco-divider__diamond {
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  opacity: 0.8;
+}
+
+.deco-divider__diamond--large {
+  width: 9px;
+  height: 9px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+/* ─── Art Deco corner frame ──────────────────────────────────── */
+.deco-frame {
+  position: relative;
+}
+.deco-frame::before,
+.deco-frame::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.35;
+}
+.deco-frame::before {
+  top: -2px;
+  left: -2px;
+  border-width: 1px 0 0 1px;
+}
+.deco-frame::after {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 1px 1px 0;
+}
+
+/* ─── Subtle background texture ─────────────────────────────── */
+.deco-bg-texture {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(201,169,110,0.06) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+
+/* ─── Gold gradient text ─────────────────────────────────────── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #E8D5B0 0%, #C9A96E 50%, #A07840 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Animated underline ─────────────────────────────────────── */
+.nav-link {
+  position: relative;
+  letter-spacing: 0.1em;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ─── Scroll-reveal helper (initial state) ───────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Legacy Art Deco (kept for compatibility) ───────────────── */
+.art-deco-pattern {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(201,169,110,0.08) 1px, transparent 0);
+  background-size: 28px 28px;
+}

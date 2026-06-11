@@ -1,0 +1,73 @@
+{
+  "hero": {
+    "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+    "title": "Soirée Innovation & Cocktails",
+    "titleAccent": "IBM Tech Summit 2024",
+    "date": "22 Mars 2024",
+    "location": "IBM Innovation Center, Paris",
+    "guests": "250 invités",
+    "description": "Une soirée exceptionnelle mêlant innovation technologique et art de la mixologie dans le cadre prestigieux de l'IBM Innovation Center à Paris."
+  },
+  "story": {
+    "eyebrow": "Séminaire d'entreprise",
+    "title": "L'Événement",
+    "paragraphs": [
+      "Pour célébrer le lancement de sa nouvelle plateforme d'intelligence artificielle, IBM a choisi d'organiser une soirée exceptionnelle mêlant innovation technologique et art de la mixologie. L'événement s'est déroulé dans le cadre prestigieux de l'IBM Innovation Center à Paris, transformé pour l'occasion en un espace où le futur rencontre l'élégance des années 20.",
+      "Les 250 invités, composés de clients premium, partenaires stratégiques et leaders de l'industrie, ont été accueillis dans un environnement où chaque détail reflétait la fusion entre technologie de pointe et raffinement traditionnel.",
+      "Le point culminant de la soirée fut notre bar à cocktails moléculaires, où nous avons créé des boissons inspirées par les innovations IBM. Chaque cocktail racontait une histoire liée à un aspect de la technologie, utilisant des techniques de mixologie moléculaire pour créer des expériences sensorielles uniques."
+    ],
+    "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    "stats": [
+      {
+        "value": "250",
+        "label": "Invités"
+      },
+      {
+        "value": "4h",
+        "label": "de prestation"
+      },
+      {
+        "value": "Paris",
+        "label": "Lieu"
+      }
+    ]
+  },
+  "cocktails": [
+    {
+      "name": "Quantum Cloud",
+      "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "description": "Un cocktail spectaculaire à base de gin infusé au papillon bleu, liqueur de litchi et tonic, changeant de couleur au contact du citron",
+      "ingredients": []
+    },
+    {
+      "name": "Neural Network",
+      "image": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "description": "Vodka premium, liqueur de violette et champagne, servi dans une brume d'azote liquide créant un effet de réseau neuronal",
+      "ingredients": []
+    },
+    {
+      "name": "Data Stream",
+      "image": "https://images.unsplash.com/photo-1536935338788-846bb9981813?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "description": "Un long drink rafraîchissant composé de rhum blanc, purée de fruits exotiques et gelée de code binaire comestible",
+      "ingredients": []
+    }
+  ],
+  "gallery": [
+    {
+      "src": "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "alt": "Espace Innovation"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "alt": "Bar Moléculaire"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1574096079513-d8259312b785?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "alt": "Démonstrations"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1562095241-8c6714fd4178?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      "alt": "Expériences Sensorielles"
+    }
+  ]
+}
