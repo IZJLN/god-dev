@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, MapPin, ChevronLeft, ArrowRight } from "lucide-react";
@@ -39,11 +39,11 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
   const { hero, story, cocktails, gallery } = data;
 
   return (
-    <div className="min-h-screen bg-[#080E0C] text-[#E8D5B0]">
+    <div className="min-h-screen bg-black text-white">
       <main>
 
         {/* ── HERO ── */}
-        <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-[#080E0C]">
+        <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-black">
           <div className="absolute inset-0">
             <Image
               src={hero.image}
@@ -53,7 +53,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
               priority
               unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#080E0C]/60 via-transparent to-[#080E0C]/90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
           </div>
           {/* Decorative lines */}
           <div className="absolute top-1/3 left-0 right-0 pointer-events-none">
@@ -66,7 +66,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
           <div className="absolute top-28 left-6 md:left-10 z-20">
             <Link
               href="/#realisation"
-              className="inline-flex items-center gap-2 text-[#C9A96E] text-sm tracking-widest uppercase hover:text-[#E8D5B0] transition-colors duration-300"
+              className="inline-flex items-center gap-2 text-[#C9A96E] text-sm tracking-widest uppercase hover:text-white transition-colors duration-300"
               style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
             >
               <ChevronLeft size={16} />
@@ -87,15 +87,15 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
               <div className="h-px w-16 bg-[#C9A96E]/50" />
             </div>
             <h1
-              className="text-4xl md:text-6xl lg:text-7xl text-[#E8D5B0] tracking-wide leading-tight mb-8"
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+              className="text-4xl md:text-6xl lg:text-7xl text-white tracking-wide leading-tight mb-8"
+              style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}
             >
               {hero.title}{" "}
               <span className="text-[#C9A96E]">{hero.titleAccent}</span>
             </h1>
             <div className="flex flex-wrap items-center justify-center gap-6 mb-8">
               <span
-                className="inline-flex items-center gap-2 text-[#c8c0b4] text-sm"
+                className="inline-flex items-center gap-2 text-white/70 text-sm"
                 style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
               >
                 <Calendar size={14} className="text-[#C9A96E]" />
@@ -103,7 +103,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
               </span>
               <div className="w-px h-4 bg-[#C9A96E]/30" />
               <span
-                className="inline-flex items-center gap-2 text-[#c8c0b4] text-sm"
+                className="inline-flex items-center gap-2 text-white/70 text-sm"
                 style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
               >
                 <MapPin size={14} className="text-[#C9A96E]" />
@@ -111,14 +111,14 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
               </span>
               <div className="w-px h-4 bg-[#C9A96E]/30" />
               <span
-                className="text-[#c8c0b4] text-sm"
+                className="text-white/70 text-sm"
                 style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
               >
                 {hero.guests}
               </span>
             </div>
             <p
-              className="text-[#c8c0b4] text-base md:text-lg leading-relaxed max-w-2xl mx-auto"
+              className="text-white/70 text-base md:text-lg leading-relaxed max-w-2xl mx-auto"
               style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
             >
               {hero.description}
@@ -135,7 +135,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
         </section>
 
         {/* ── STORY ── */}
-        <section className="relative py-24 bg-[#0C1915] overflow-hidden">
+        <section className="relative py-24 bg-[#050505] overflow-hidden">
           <div className="absolute inset-0 art-deco-pattern pointer-events-none opacity-60" />
           <div className="relative z-10 container mx-auto px-6 max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
@@ -151,13 +151,13 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                   <div className="w-1.5 h-1.5 rotate-45 bg-[#C9A96E]/70" />
                 </div>
                 <h2
-                  className="text-3xl md:text-4xl text-[#E8D5B0] tracking-wide leading-snug mb-8"
-                  style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+                  className="text-3xl md:text-4xl text-white tracking-wide leading-snug mb-8"
+                  style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}
                 >
                   {story.title}
                 </h2>
                 <div
-                  className="space-y-5 text-[#c8c0b4] text-sm md:text-base leading-relaxed"
+                  className="space-y-5 text-white/70 text-sm md:text-base leading-relaxed"
                   style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
                 >
                   {story.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
@@ -176,7 +176,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                     className="object-cover"
                     unoptimized
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1915]/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/40 to-transparent" />
                 </div>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
               {story.stats.map(({ value, label }) => (
                 <div
                   key={label}
-                  className="relative bg-[#080E0C]/60 border border-[#C9A96E]/15 p-8 text-center"
+                  className="relative bg-black/60 border border-[#C9A96E]/15 p-8 text-center"
                 >
                   <div className="absolute top-3 left-3 w-5 h-5 border-t border-l border-[#C9A96E]/50" />
                   <div className="absolute top-3 right-3 w-5 h-5 border-t border-r border-[#C9A96E]/50" />
@@ -193,12 +193,12 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                   <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-[#C9A96E]/50" />
                   <p
                     className="text-3xl md:text-4xl text-[#C9A96E] mb-2"
-                    style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+                    style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}
                   >
                     {value}
                   </p>
                   <p
-                    className="text-xs tracking-[0.3em] uppercase text-[#8A7B68]"
+                    className="text-xs tracking-[0.3em] uppercase text-white/55"
                     style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
                   >
                     {label}
@@ -211,7 +211,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
 
         {/* ── COCKTAILS ── */}
         {cocktails.length > 0 && (
-          <section className="relative py-24 bg-[#080E0C] overflow-hidden">
+          <section className="relative py-24 bg-black overflow-hidden">
             <div className="container mx-auto px-6 max-w-6xl">
               <div className="mb-16">
                 <SectionTitle eyebrow="La Carte" title="Cocktails de la Soirée" />
@@ -220,7 +220,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                 {cocktails.map(({ name, image, description, ingredients }) => (
                   <div
                     key={name}
-                    className="relative bg-[#111A17] border border-[#C9A96E]/15 overflow-hidden group hover:border-[#C9A96E]/40 transition-all duration-500"
+                    className="relative bg-[#0A0A0A] border border-[#C9A96E]/15 overflow-hidden group hover:border-[#C9A96E]/40 transition-all duration-500"
                   >
                     <div className="relative h-64 overflow-hidden">
                       <Image
@@ -230,7 +230,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                         unoptimized
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#111A17] via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
                     </div>
                     <div className="relative p-8">
                       <div className="flex items-center gap-3 mb-4">
@@ -240,13 +240,13 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                       </div>
                       <h3
                         className="text-xl text-[#C9A96E] tracking-wide mb-4"
-                        style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+                        style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}
                       >
                         {name}
                       </h3>
                       {description && (
                         <p
-                          className="text-[#8A7B68] text-sm leading-relaxed mb-3"
+                          className="text-white/55 text-sm leading-relaxed mb-3"
                           style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
                         >
                           {description}
@@ -254,7 +254,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                       )}
                       {ingredients.length > 0 && (
                         <ul
-                          className="space-y-1.5 text-[#8A7B68] text-sm"
+                          className="space-y-1.5 text-white/55 text-sm"
                           style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
                         >
                           {ingredients.map((ing) => (
@@ -277,7 +277,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
 
         {/* ── GALLERY ── */}
         {gallery.length > 0 && (
-          <section className="relative py-24 bg-[#0C1915] overflow-hidden">
+          <section className="relative py-24 bg-[#050505] overflow-hidden">
             <div className="absolute inset-0 art-deco-pattern pointer-events-none opacity-60" />
             <div className="relative z-10 container mx-auto px-6 max-w-6xl">
               <div className="mb-16">
@@ -296,7 +296,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                       unoptimized
                     />
-                    <div className="absolute inset-0 bg-[#0C1915]/20 group-hover:bg-transparent transition-colors duration-500" />
+                    <div className="absolute inset-0 bg-[#050505]/20 group-hover:bg-transparent transition-colors duration-500" />
                     <div className="absolute top-3 left-3 w-5 h-5 border-t border-l border-[#C9A96E]/0 group-hover:border-[#C9A96E]/60 transition-all duration-300" />
                     <div className="absolute top-3 right-3 w-5 h-5 border-t border-r border-[#C9A96E]/0 group-hover:border-[#C9A96E]/60 transition-all duration-300" />
                     <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-[#C9A96E]/0 group-hover:border-[#C9A96E]/60 transition-all duration-300" />
@@ -309,7 +309,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
         )}
 
         {/* ── CTA ── */}
-        <section className="relative py-28 bg-[#080E0C] overflow-hidden">
+        <section className="relative py-28 bg-black overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/30 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/30 to-transparent" />
           <div className="relative z-10 container mx-auto px-6 max-w-3xl text-center">
@@ -325,13 +325,13 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
               <div className="h-px w-16 bg-[#C9A96E]/50" />
             </div>
             <h2
-              className="text-3xl md:text-5xl text-[#E8D5B0] tracking-wide mb-6"
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+              className="text-3xl md:text-5xl text-white tracking-wide mb-6"
+              style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}
             >
               Vous organisez un événement ?
             </h2>
             <p
-              className="text-[#c8c0b4] text-base leading-relaxed mb-10"
+              className="text-white/70 text-base leading-relaxed mb-10"
               style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
             >
               Confiez-nous l&apos;art du bar pour votre prochain événement et offrez à vos
@@ -339,7 +339,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
             </p>
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-[#C9A96E] text-[#080E0C] text-sm tracking-[0.2em] uppercase font-medium hover:bg-[#E8D5B0] transition-colors duration-300"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[#C9A96E] text-black text-sm tracking-[0.2em] uppercase font-medium hover:bg-white transition-colors duration-300"
               style={{ fontFamily: "var(--font-lato), sans-serif" }}
             >
               Nous contacter
@@ -353,3 +353,4 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
     </div>
   );
 }
+
