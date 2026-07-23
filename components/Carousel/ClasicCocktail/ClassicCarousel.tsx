@@ -24,11 +24,12 @@ const ClassicCarousel: React.FC<Props> = ({ items }) => {
   if (!items || items.length === 0) return null;
 
   const handleTransition = (newIndex: number) => {
-    if (!isTransitioning) {
-      setIsTransitioning(true);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
       setCurrentIndex(newIndex);
-      setTimeout(() => setIsTransitioning(false), 500);
-    }
+      setTimeout(() => setIsTransitioning(false), 50);
+    }, 300);
   };
 
   const nextSlide = () => handleTransition((currentIndex + 1) % items.length);
@@ -36,21 +37,23 @@ const ClassicCarousel: React.FC<Props> = ({ items }) => {
 
   return (
     <div className="relative w-full max-w-3xl mx-auto h-[500px] overflow-hidden">
-      {/* Blurred background fill */}
-      <Image
-        src={items[currentIndex].image}
-        alt=""
-        fill
-        className="object-cover scale-110 blur-2xl opacity-40"
-        unoptimized
-        aria-hidden
-      />
-      {/* Full image contained */}
+
+      {/* Fading group — images + text */}
       <div
-        className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+        className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
           isTransitioning ? "opacity-0" : "opacity-100"
         }`}
       >
+        {/* Blurred background */}
+        <Image
+          src={items[currentIndex].image}
+          alt=""
+          fill
+          className="object-cover scale-110 blur-2xl opacity-40"
+          unoptimized
+          aria-hidden
+        />
+        {/* Main image */}
         <Image
           src={items[currentIndex].image}
           alt={items[currentIndex].name}
@@ -58,41 +61,39 @@ const ClassicCarousel: React.FC<Props> = ({ items }) => {
           className="object-contain"
           unoptimized
         />
-      </div>
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-      {/* Content */}
-      <div className="absolute inset-0 z-20 flex flex-col justify-end p-10">
-        <div className="text-center">
-          {items[currentIndex].year && (
+        {/* Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        {/* Text */}
+        <div className="absolute inset-0 z-10 flex flex-col justify-end p-10 pb-20">
+          <div className="text-center">
+            {items[currentIndex].year && (
+              <p
+                className="text-[0.6rem] tracking-[0.35em] uppercase text-white/55 mb-3"
+                style={{ fontFamily: "var(--font-lato), sans-serif" }}
+              >
+                {items[currentIndex].year}
+              </p>
+            )}
+            <h2
+              className="text-[clamp(2rem,5vw,3.5rem)] text-white mb-3"
+              style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif", fontWeight: 700, lineHeight: 1 }}
+            >
+              {items[currentIndex].name}
+            </h2>
+            <div className="w-10 h-px bg-white/25 mx-auto mb-4" />
             <p
-              className="text-[0.6rem] tracking-[0.35em] uppercase text-white/55 mb-3"
+              className="text-sm text-white/75 max-w-md mx-auto leading-relaxed font-light"
               style={{ fontFamily: "var(--font-lato), sans-serif" }}
             >
-              {items[currentIndex].year}
+              {items[currentIndex].description}
             </p>
-          )}
-          <h2
-            className="text-[clamp(2rem,5vw,3.5rem)] text-white mb-3"
-            style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif", fontWeight: 700, lineHeight: 1 }}
-          >
-            {items[currentIndex].name}
-          </h2>
-          <div className="w-10 h-px bg-white/25 mx-auto mb-4" />
-          <p
-            className="text-sm text-white/75 max-w-md mx-auto leading-relaxed mb-8 font-light"
-            style={{ fontFamily: "var(--font-lato), sans-serif" }}
-          >
-            {items[currentIndex].description}
-          </p>
-          <CarouselDots
-            total={items.length}
-            current={currentIndex}
-            onSelect={handleTransition}
-          />
+          </div>
         </div>
+      </div>
+
+      {/* Dots — toujours visibles */}
+      <div className="absolute bottom-8 left-0 right-0 z-30 flex justify-center">
+        <CarouselDots total={items.length} current={currentIndex} onSelect={handleTransition} />
       </div>
 
       <CarouselNavigation onPrevious={prevSlide} onNext={nextSlide} />
