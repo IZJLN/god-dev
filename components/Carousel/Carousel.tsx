@@ -133,6 +133,31 @@ async function Carousel() {
           <ClassicCarousel items={classiquesList} />
         </div>
 
+        {/* Bandeau photo décoratif */}
+        <div className="mt-32 -mx-6 flex h-[55vh] min-h-[320px] overflow-hidden">
+          <div className="relative w-1/2 overflow-hidden">
+            <Image
+              src="/bars/deco-1.jpg"
+              alt=""
+              fill
+              className="object-cover transition-transform duration-700 hover:scale-105"
+              aria-hidden
+            />
+            <div className="absolute inset-0 bg-black/20" />
+          </div>
+          <div className="relative w-px bg-black shrink-0" />
+          <div className="relative w-1/2 overflow-hidden">
+            <Image
+              src="/bars/deco-2.jpg"
+              alt=""
+              fill
+              className="object-cover transition-transform duration-700 hover:scale-105"
+              aria-hidden
+            />
+            <div className="absolute inset-0 bg-black/20" />
+          </div>
+        </div>
+
         {/* Scénographie */}
         <div className="mt-32">
           <SectionTitle
