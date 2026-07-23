@@ -36,18 +36,26 @@ const MocktailCarousel: React.FC<Props> = ({ items }) => {
 
   return (
     <div className="relative w-full max-w-3xl mx-auto h-[500px] overflow-hidden">
-      {/* Background image */}
+      {/* Blurred background fill */}
+      <Image
+        src={items[currentIndex].image}
+        alt=""
+        fill
+        className="object-cover scale-110 blur-2xl opacity-40"
+        unoptimized
+        aria-hidden
+      />
+      {/* Full image contained */}
       <div
-        className={`absolute inset-0 transition-transform duration-500 ease-in-out ${
-          isTransitioning ? "scale-105" : "scale-100"
+        className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+          isTransitioning ? "opacity-0" : "opacity-100"
         }`}
       >
         <Image
           src={items[currentIndex].image}
           alt={items[currentIndex].name}
-          className="w-full h-full object-cover"
-          width={800}
-          height={500}
+          fill
+          className="object-contain"
           unoptimized
         />
       </div>
