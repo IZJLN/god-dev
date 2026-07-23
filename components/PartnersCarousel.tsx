@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Bmc from "@/assets/logoPartners/bmc.png";
 import Hrd from "@/assets/logoPartners/hrd.svg";
@@ -5,14 +8,23 @@ import Materieldebar from "@/assets/logoPartners/materieldebar.png";
 import Mtafolie from "@/assets/logoPartners/mtafolie.png";
 import Siphro from "@/assets/logoPartners/siphro.png";
 
+const logos = [
+  { src: Bmc, alt: "Groupe BMC" },
+  { src: Hrd, alt: "HR Difusion" },
+  { src: Materieldebar, alt: "Materieldebar.com" },
+  { src: Mtafolie, alt: "M ta folie" },
+  { src: Siphro, alt: "Siphro" },
+];
+
 export default function LogoCarousel() {
-  const logos = [
-    { src: Bmc, alt: "Groupe BMC" },
-    { src: Hrd, alt: "HR Difusion" },
-    { src: Materieldebar, alt: "Materieldebar.com" },
-    { src: Mtafolie, alt: "M ta folie" },
-    { src: Siphro, alt: "Siphro" },
-  ];
+  const primaryRef = useRef<HTMLUListElement>(null);
+  const [setWidth, setSetWidth] = useState(0);
+
+  useEffect(() => {
+    if (primaryRef.current) {
+      setSetWidth(primaryRef.current.offsetWidth);
+    }
+  }, []);
 
   return (
     <section className="bg-black py-16 border-t border-white/5">
@@ -26,29 +38,55 @@ export default function LogoCarousel() {
       </div>
 
       <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-        {/* Single wrapper animated at -50% so the loop is seamless */}
-        <div className="flex w-max animate-infinite-scroll">
-          {[0, 1].map((copy) => (
-            <ul
-              key={copy}
-              className="flex items-center shrink-0"
-              aria-hidden={copy === 1 ? true : undefined}
-            >
-              {logos.map((logo, index) => (
-                <li key={index} className="mx-12">
-                  <Image
-                    src={logo.src}
-                    alt={copy === 0 ? logo.alt : ""}
-                    className="object-contain h-10 w-auto opacity-65 hover:opacity-95 transition-opacity duration-300 brightness-0 invert"
-                    width={160}
-                    height={40}
-                  />
-                </li>
-              ))}
-            </ul>
-          ))}
+        <div
+          className="flex"
+          style={
+            setWidth > 0
+              ? { animation: `partners-scroll 25s linear infinite` }
+              : undefined
+          }
+        >
+          {/* Premier set — mesuré */}
+          <ul ref={primaryRef} className="flex items-center shrink-0">
+            {logos.map((logo, i) => (
+              <li key={i} className="mx-12">
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={160}
+                  height={40}
+                  className="object-contain h-10 w-auto opacity-65 hover:opacity-95 transition-opacity duration-300 brightness-0 invert"
+                />
+              </li>
+            ))}
+          </ul>
+
+          {/* Copie identique pour le loop continu */}
+          <ul className="flex items-center shrink-0" aria-hidden>
+            {logos.map((logo, i) => (
+              <li key={i} className="mx-12">
+                <Image
+                  src={logo.src}
+                  alt=""
+                  width={160}
+                  height={40}
+                  className="object-contain h-10 w-auto opacity-65 hover:opacity-95 transition-opacity duration-300 brightness-0 invert"
+                />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
+
+      {/* Keyframe en pixels exacts = aucun gap possible */}
+      {setWidth > 0 && (
+        <style>{`
+          @keyframes partners-scroll {
+            from { transform: translateX(0px); }
+            to   { transform: translateX(-${setWidth}px); }
+          }
+        `}</style>
+      )}
     </section>
   );
 }
