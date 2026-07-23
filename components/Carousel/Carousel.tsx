@@ -13,26 +13,32 @@ const bars = [
     name: "Le Distingué",
     description:
       "Sobre et raffiné, idéal pour les mariages et évènements privés.",
-    image:
-      "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Bar Le Distingué",
+    images: [
+      "/bars/distingue-1.jpg",
+      "/bars/distingue-2.jpg",
+      "/bars/distingue-3.jpg",
+    ],
   },
   {
     number: "02",
     name: "Le Speakeasy",
     description:
       "Adapté aux grandes réceptions et évènements d’entreprise.",
-    image:
-      "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Bar Le Speakeasy",
+    images: [
+      "/bars/speakeasy-1.jpg",
+      "/bars/speakeasy-2.jpg",
+      "/bars/speakeasy-3.jpg",
+    ],
   },
   {
     number: "03",
     name: "Le Jungle",
     description: "Bar végétal, s’adapte à tous les environnements.",
-    image:
-      "https://images.unsplash.com/photo-1571167366136-b57e03b5f0c0?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Bar Le Jungle",
+    images: [
+      "/bars/jungle-1.png",
+      "/bars/jungle-2.png",
+      "/bars/jungle-3.jpg",
+    ],
   },
 ];
 
@@ -142,21 +148,39 @@ async function Carousel() {
               return (
                 <div
                   key={bar.number}
-                  className={`flex flex-col ${imageLeft ? "lg:flex-row" : "lg:flex-row-reverse"} items-stretch min-h-[420px]`}
+                  className={`flex flex-col ${imageLeft ? "lg:flex-row" : "lg:flex-row-reverse"} items-stretch min-h-[480px]`}
                 >
-                  {/* Image */}
-                  <div className="relative w-full lg:w-3/5 min-h-[280px] lg:min-h-0 overflow-hidden">
-                    <Image
-                      src={bar.image}
-                      alt={bar.imageAlt}
-                      fill
-                      className="object-cover transition-transform duration-700 hover:scale-105"
-                      unoptimized
-                    />
-                    <div className="absolute inset-0 bg-black/25" />
+                  {/* Photo collage — 3 images */}
+                  <div className="w-full lg:w-3/5 grid grid-cols-2 grid-rows-2 gap-1 min-h-[320px] lg:min-h-0">
+                    {/* Image principale — prend toute la hauteur à gauche */}
+                    <div className="relative row-span-2 overflow-hidden">
+                      <Image
+                        src={bar.images[0]}
+                        alt={`${bar.name} — photo 1`}
+                        fill
+                        className="object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                    </div>
+                    {/* Images secondaires — empilées à droite */}
+                    <div className="relative overflow-hidden">
+                      <Image
+                        src={bar.images[1]}
+                        alt={`${bar.name} — photo 2`}
+                        fill
+                        className="object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden">
+                      <Image
+                        src={bar.images[2]}
+                        alt={`${bar.name} — photo 3`}
+                        fill
+                        className="object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                    </div>
                   </div>
 
-                  {/* Text */}
+                  {/* Texte */}
                   <div className="relative w-full lg:w-2/5 bg-[#050505] border border-white/5 flex flex-col justify-center px-10 py-12 lg:px-14">
                     <p
                       className="text-[0.55rem] tracking-[0.4em] uppercase text-white/30 mb-6"
