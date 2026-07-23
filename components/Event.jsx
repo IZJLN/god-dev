@@ -67,19 +67,19 @@ function EventCard({ event }) {
           {event.title}
         </h3>
 
-        <div className="flex items-center gap-4 mb-3 text-xs text-white/30">
+        <div className="flex items-center gap-4 mb-3 text-xs text-white/55">
           <span className="flex items-center gap-1.5">
-            <Calendar size={11} className="text-white/25" />
+            <Calendar size={11} className="text-white/45" />
             {event.date}
           </span>
           <span className="flex items-center gap-1.5">
-            <MapPin size={11} className="text-white/25" />
+            <MapPin size={11} className="text-white/45" />
             {event.location}
           </span>
         </div>
 
         <p
-          className="text-white/40 text-sm leading-relaxed mb-5"
+          className="text-white/65 text-sm leading-relaxed mb-5"
           style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
         >
           {event.description}
@@ -89,7 +89,7 @@ function EventCard({ event }) {
         {isLink && (
           <div className="flex items-center gap-3 pt-4 border-t border-white/5">
             <span
-              className="text-[0.6rem] tracking-[0.25em] uppercase text-white/35"
+              className="text-[0.6rem] tracking-[0.25em] uppercase text-white/55"
               style={{ fontFamily: "var(--font-lato), sans-serif" }}
             >
               Voir le détail
@@ -97,7 +97,7 @@ function EventCard({ event }) {
             <div className="flex-1 h-px bg-white/10 max-w-[50px]" />
             <ArrowRight
               size={13}
-              className="text-white/30 group-hover:text-white/60 group-hover:translate-x-1 transition-all duration-300"
+              className="text-white/55 group-hover:text-white/80 group-hover:translate-x-1 transition-all duration-300"
             />
           </div>
         )}

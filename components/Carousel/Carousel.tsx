@@ -44,7 +44,7 @@ async function Carousel() {
           <div className="flex items-center gap-6 mb-12">
             <div className="h-px flex-1 max-w-[60px] bg-white/15" />
             <p
-              className="text-[0.6rem] tracking-[0.35em] uppercase text-white/35"
+              className="text-[0.6rem] tracking-[0.35em] uppercase text-white/50"
               style={{ fontFamily: "var(--font-lato), sans-serif" }}
             >
               Sans alcool
@@ -58,7 +58,7 @@ async function Carousel() {
             Mocktails
           </h2>
           <p
-            className="text-sm leading-relaxed text-white/40 max-w-2xl mb-12"
+            className="text-sm leading-relaxed text-white/65 max-w-2xl mb-12"
             style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
           >
             Pour une expérience sans alcool qui ne sacrifie ni le goût ni l&apos;élégance,
@@ -72,7 +72,7 @@ async function Carousel() {
           <div className="flex items-center gap-6 mb-12">
             <div className="h-px flex-1 max-w-[60px] bg-white/15" />
             <p
-              className="text-[0.6rem] tracking-[0.35em] uppercase text-white/35"
+              className="text-[0.6rem] tracking-[0.35em] uppercase text-white/50"
               style={{ fontFamily: "var(--font-lato), sans-serif" }}
             >
               Intemporels
@@ -86,7 +86,7 @@ async function Carousel() {
             Les classiques
           </h2>
           <p
-            className="text-sm leading-relaxed text-white/40 max-w-2xl mb-12"
+            className="text-sm leading-relaxed text-white/65 max-w-2xl mb-12"
             style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
           >
             Mojito, Margarita, Daiquiri, Old Fashioned — des incontournables revisités avec des

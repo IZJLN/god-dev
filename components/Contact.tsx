@@ -56,7 +56,7 @@ export default function Contact() {
 
   const inputClass =
     "w-full px-4 py-3 bg-black border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-white/30 transition-colors duration-200";
-  const labelClass = "block text-[0.6rem] tracking-[0.2em] uppercase text-white/40 mb-2";
+  const labelClass = "block text-[0.6rem] tracking-[0.2em] uppercase text-white/55 mb-2";
 
   return (
     <section id="contact" className="py-24 bg-[#050505] relative">
@@ -80,10 +80,10 @@ export default function Contact() {
                 key={label}
                 className="flex items-center gap-4 p-5 bg-black"
               >
-                <Icon className="text-white/30 flex-shrink-0" size={18} />
+                <Icon className="text-white/50 flex-shrink-0" size={18} />
                 <div>
                   <p
-                    className="text-[0.55rem] tracking-[0.2em] uppercase text-white/30 mb-0.5"
+                    className="text-[0.55rem] tracking-[0.2em] uppercase text-white/50 mb-0.5"
                     style={{ fontFamily: "var(--font-lato), sans-serif" }}
                   >
                     {label}

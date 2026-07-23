@@ -68,7 +68,7 @@ const MocktailCarousel: React.FC<Props> = ({ items }) => {
         <div className="text-center">
           {items[currentIndex].year && (
             <p
-              className="text-[0.6rem] tracking-[0.35em] uppercase text-white/40 mb-3"
+              className="text-[0.6rem] tracking-[0.35em] uppercase text-white/55 mb-3"
               style={{ fontFamily: "var(--font-lato), sans-serif" }}
             >
               {items[currentIndex].year}
@@ -82,7 +82,7 @@ const MocktailCarousel: React.FC<Props> = ({ items }) => {
           </h2>
           <div className="w-10 h-px bg-white/25 mx-auto mb-4" />
           <p
-            className="text-sm text-white/55 max-w-md mx-auto leading-relaxed mb-8 font-light"
+            className="text-sm text-white/75 max-w-md mx-auto leading-relaxed mb-8 font-light"
             style={{ fontFamily: "var(--font-lato), sans-serif" }}
           >
             {items[currentIndex].description}

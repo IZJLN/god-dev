@@ -41,7 +41,7 @@ const ChooseUs = () => {
                 className="opacity-90 group-hover:opacity-100 transition-opacity duration-300"
               />
               <h3
-                className="text-xs tracking-[0.2em] uppercase text-white/60 group-hover:text-white/90 transition-colors duration-300"
+                className="text-xs tracking-[0.2em] uppercase text-white/75 group-hover:text-white transition-colors duration-300"
                 style={{ fontFamily: "var(--font-lato), sans-serif" }}
               >
                 {item.label}
@@ -51,7 +51,7 @@ const ChooseUs = () => {
         </div>
 
         <p
-          className="mt-14 text-sm leading-relaxed text-white/35 max-w-2xl"
+          className="mt-14 text-sm leading-relaxed text-white/65 max-w-2xl"
           style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
         >
           Chez Good Old Drinks, chaque détail est pensé pour vous offrir une expérience unique.

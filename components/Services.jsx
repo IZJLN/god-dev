@@ -60,7 +60,7 @@ export default function Services() {
         </div>
 
         <p
-          className="mt-14 text-sm leading-relaxed text-white/35 max-w-2xl"
+          className="mt-14 text-sm leading-relaxed text-white/65 max-w-2xl"
           style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
         >
           Que ce soit pour un baptême, un EVG/EVJF, une soirée entre amis ou un afterwork d&apos;entreprise,
@@ -103,14 +103,14 @@ function ServiceCard({ service }) {
             {service.title}
           </h3>
           <p
-            className="text-white/50 text-sm leading-relaxed mb-5"
+            className="text-white/75 text-sm leading-relaxed mb-5"
             style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
           >
             {service.description}
           </p>
           <div className="flex items-center gap-3">
             <span
-              className="text-[0.6rem] tracking-[0.25em] uppercase text-white/50"
+              className="text-[0.6rem] tracking-[0.25em] uppercase text-white/65"
               style={{ fontFamily: "var(--font-lato), sans-serif" }}
             >
               En savoir plus

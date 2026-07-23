@@ -4,9 +4,9 @@ import Image from "next/image";
 import Logo from "@/assets/DORE.png";
 
 const footerLinkClass =
-  "text-white/30 hover:text-white/70 transition-colors duration-200 text-sm";
+  "text-white/55 hover:text-white/90 transition-colors duration-200 text-sm";
 
-const colHeadClass = "text-[0.55rem] tracking-[0.25em] uppercase text-white/35 mb-5";
+const colHeadClass = "text-[0.55rem] tracking-[0.25em] uppercase text-white/50 mb-5";
 
 export default function Footer() {
   return (
@@ -19,7 +19,7 @@ export default function Footer() {
           <div className="flex flex-col gap-5">
             <Image src={Logo} alt="Good Old Drinks" width={200} />
             <p
-              className="text-white/30 text-sm leading-relaxed"
+              className="text-white/60 text-sm leading-relaxed"
               style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
             >
               Barman privé pour tous vos événements
@@ -65,7 +65,7 @@ export default function Footer() {
             <p className={colHeadClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Services</p>
             <ul className="space-y-2.5" style={{ fontFamily: "var(--font-lato), sans-serif" }}>
               {["Mariages", "Soirées privées", "Soirées d'entreprise", "Événements sportifs", "Consulting"].map((s) => (
-                <li key={s} className="text-white/30 text-sm">{s}</li>
+                <li key={s} className="text-white/55 text-sm">{s}</li>
               ))}
             </ul>
           </div>
@@ -74,12 +74,12 @@ export default function Footer() {
           <div>
             <p className={colHeadClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Contact</p>
             <ul className="space-y-3" style={{ fontFamily: "var(--font-lato), sans-serif" }}>
-              <li className="flex items-center gap-3 text-white/30 text-sm">
-                <Phone size={14} className="text-white/25 flex-shrink-0" />
+              <li className="flex items-center gap-3 text-white/60 text-sm">
+                <Phone size={14} className="text-white/45 flex-shrink-0" />
                 <span>06 59 32 21 31</span>
               </li>
-              <li className="flex items-center gap-3 text-white/30 text-sm">
-                <Mail size={14} className="text-white/25 flex-shrink-0" />
+              <li className="flex items-center gap-3 text-white/60 text-sm">
+                <Mail size={14} className="text-white/45 flex-shrink-0" />
                 <span>goodolddrinks@gmail.com</span>
               </li>
             </ul>
@@ -92,7 +92,7 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p
-            className="text-white/20 text-xs"
+            className="text-white/40 text-xs"
             style={{ fontFamily: "var(--font-lato), sans-serif" }}
           >
             © {new Date().getFullYear()} Good Old Drinks. Tous droits réservés.

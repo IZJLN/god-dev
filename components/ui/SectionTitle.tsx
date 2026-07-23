@@ -26,7 +26,7 @@ export default function SectionTitle({
       {/* Eyebrow */}
       {eyebrow && (
         <p
-          className="text-[0.6rem] tracking-[0.35em] uppercase text-white/35 mb-3"
+          className="text-[0.6rem] tracking-[0.35em] uppercase text-white/50 mb-3"
           style={{ fontFamily: "var(--font-lato), sans-serif" }}
         >
           {eyebrow}
@@ -44,7 +44,7 @@ export default function SectionTitle({
       {/* Subtitle */}
       {subtitle && (
         <p
-          className="mt-6 max-w-2xl text-sm md:text-base font-light leading-relaxed text-white/50"
+          className="mt-6 max-w-2xl text-sm md:text-base font-light leading-relaxed text-white/70"
           style={{ fontFamily: "var(--font-lato), sans-serif" }}
         >
           {subtitle}

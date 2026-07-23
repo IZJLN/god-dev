@@ -41,7 +41,7 @@ export default function Quote() {
           {/* Attribution */}
           <footer>
             <p
-              className="text-white/35 text-sm mb-1"
+              className="text-white/65 text-sm mb-1"
               style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
             >
               Martin Pivetta, fondateur de
