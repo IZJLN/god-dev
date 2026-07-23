@@ -1,19 +1,19 @@
-import React from "react";
+﻿import React from "react";
 import { Wine, Heart, Star, GlassWater, Users, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 export default function WeddingOverview() {
   return (
-    <section className="py-20 px-4 bg-[#1D0808]">
+    <section className="py-20 px-4 bg-black">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Main Content */}
           <div className="space-y-8">
             <div className="space-y-6">
-              <h2 className="text-3xl font-serif text-[#c7b79c]">
+              <h2 className="text-3xl font-serif text-white">
                 Une Expérience Unique
               </h2>
-              <div className="space-y-4 text-[#c7b79c]/90 leading-relaxed">
+              <div className="space-y-4 text-white/75 leading-relaxed">
                 <p>
                   Votre mariage est bien plus qu&apos;une simple célébration -
                   c&apos;est le début d&apos;une nouvelle histoire, un moment où
@@ -42,10 +42,10 @@ export default function WeddingOverview() {
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-2xl font-serif text-[#c7b79c]">
+              <h3 className="text-2xl font-serif text-white">
                 Notre Philosophie
               </h3>
-              <div className="space-y-4 text-[#c7b79c]/90 leading-relaxed">
+              <div className="space-y-4 text-white/75 leading-relaxed">
                 <p>
                   Nous croyons que chaque mariage mérite une attention
                   particulière. C&apos;est pourquoi nous limitons le nombre
@@ -66,23 +66,23 @@ export default function WeddingOverview() {
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 pt-8">
               <div className="flex flex-col items-center text-center">
-                <Wine className="w-8 h-8 mb-3 text-[#c7b79c]" />
+                <Wine className="w-8 h-8 mb-3 text-white" />
                 <h3 className="font-serif mb-2">Bar Art Déco</h3>
-                <p className="text-sm text-[#c7b79c]/80">
+                <p className="text-sm text-white/65">
                   Design élégant et raffiné
                 </p>
               </div>
               <div className="flex flex-col items-center text-center">
-                <Heart className="w-8 h-8 mb-3 text-[#c7b79c]" />
+                <Heart className="w-8 h-8 mb-3 text-white" />
                 <h3 className="font-serif mb-2">Sur Mesure</h3>
-                <p className="text-sm text-[#c7b79c]/80">
+                <p className="text-sm text-white/65">
                   Personnalisation complète
                 </p>
               </div>
               <div className="flex flex-col items-center text-center">
-                <Star className="w-8 h-8 mb-3 text-[#c7b79c]" />
+                <Star className="w-8 h-8 mb-3 text-white" />
                 <h3 className="font-serif mb-2">Excellence</h3>
-                <p className="text-sm text-[#c7b79c]/80">
+                <p className="text-sm text-white/65">
                   Service d&apos;exception
                 </p>
               </div>
@@ -109,35 +109,35 @@ export default function WeddingOverview() {
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-2xl font-serif text-[#c7b79c]">
+              <h3 className="text-2xl font-serif text-white">
                 L&apos;Art du Détail
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="flex items-start space-x-4">
-                  <GlassWater className="w-6 h-6 flex-shrink-0 text-[#c7b79c]" />
+                  <GlassWater className="w-6 h-6 flex-shrink-0 text-white" />
                   <div>
                     <h4 className="font-serif mb-2">Cocktails Signatures</h4>
-                    <p className="text-sm text-[#c7b79c]/80">
+                    <p className="text-sm text-white/65">
                       Créations uniques inspirées de votre histoire d&apos;amour
                       et personnalisées selon vos goûts.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
-                  <Users className="w-6 h-6 flex-shrink-0 text-[#c7b79c]" />
+                  <Users className="w-6 h-6 flex-shrink-0 text-white" />
                   <div>
                     <h4 className="font-serif mb-2">Service Premium</h4>
-                    <p className="text-sm text-[#c7b79c]/80">
+                    <p className="text-sm text-white/65">
                       Une équipe de professionnels attentifs et passionnés pour
                       un service impeccable.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
-                  <Sparkles className="w-6 h-6 flex-shrink-0 text-[#c7b79c]" />
+                  <Sparkles className="w-6 h-6 flex-shrink-0 text-white" />
                   <div>
                     <h4 className="font-serif mb-2">Animations Exclusives</h4>
-                    <p className="text-sm text-[#c7b79c]/80">
+                    <p className="text-sm text-white/65">
                       Démonstrations spectaculaires et ateliers interactifs pour
                       vos invités.
                     </p>
@@ -151,3 +151,4 @@ export default function WeddingOverview() {
     </section>
   );
 }
+

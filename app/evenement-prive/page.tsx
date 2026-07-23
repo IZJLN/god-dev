@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import { GlassWater, Sparkles, Users, Gem } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
@@ -28,9 +28,9 @@ const steps: StepItem[] = [
 
 export default function EvenementPrivePage() {
   return (
-    <div className="min-h-screen bg-[#080E0C] text-[#E8D5B0]">
+    <div className="min-h-screen bg-black text-white">
       {/* HERO */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-[#080E0C]">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1920&q=80"
             alt="Soirée privée élégante" fill className="object-cover opacity-20" priority />
@@ -54,7 +54,7 @@ export default function EvenementPrivePage() {
             <p className="text-xs tracking-[0.4em] uppercase text-[#C9A96E]/70 mb-4" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
               Good Old Drinks — Événement Privé
             </p>
-            <h1 className="text-4xl md:text-6xl text-[#E8D5B0] tracking-wide" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
+            <h1 className="text-4xl md:text-6xl text-white tracking-wide" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>
               Vos Soirées,
               <span className="block text-[#C9A96E] mt-2">Sublimées</span>
             </h1>
@@ -66,13 +66,13 @@ export default function EvenementPrivePage() {
             <div className="w-2 h-2 rotate-45 bg-[#C9A96E]/50" />
             <div className="w-20 h-px bg-gradient-to-l from-transparent to-[#C9A96E]/60" />
           </div>
-          <p className="text-lg md:text-xl text-[#c8c0b4] max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
+          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
             De l&apos;anniversaire intime au dîner de gala, nous orchestrons chaque détail pour que votre soirée reste gravée dans les mémoires.
           </p>
         </div>
       </section>
       {/* OVERVIEW */}
-      <section className="py-24 bg-[#0C1915] relative">
+      <section className="py-24 bg-[#050505] relative">
         <div className="absolute inset-0 art-deco-pattern pointer-events-none opacity-60" />
         <div className="container mx-auto px-4 relative z-10">
           <SectionTitle
@@ -82,19 +82,19 @@ export default function EvenementPrivePage() {
             className="mb-16"
           />
           <div className="max-w-4xl mx-auto mb-16">
-            <p className="text-[#c8c0b4] text-base md:text-lg leading-relaxed text-center" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
+            <p className="text-white/70 text-base md:text-lg leading-relaxed text-center" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
               Notre approche repose sur l&apos;écoute et la créativité. Nous concevons des cartes de cocktails qui racontent votre histoire, sélectionnons les meilleurs spiritueux et mobilisons une équipe de professionnels discrets et attentionnés — pour que vous profitiez pleinement de chaque instant.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {stats.map((stat) => (
-              <div key={stat.label} className="relative bg-[#111A17] border border-[#C9A96E]/10 p-8 text-center">
+              <div key={stat.label} className="relative bg-[#0A0A0A] border border-[#C9A96E]/10 p-8 text-center">
                 <div className="absolute top-3 left-3 w-5 h-5 border-t border-l border-[#C9A96E]/50" />
                 <div className="absolute top-3 right-3 w-5 h-5 border-t border-r border-[#C9A96E]/50" />
                 <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-[#C9A96E]/50" />
                 <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-[#C9A96E]/50" />
-                <p className="text-4xl text-[#C9A96E] mb-2" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>{stat.value}</p>
-                <p className="text-xs tracking-[0.2em] uppercase text-[#8A7B68]" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{stat.label}</p>
+                <p className="text-4xl text-[#C9A96E] mb-2" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>{stat.value}</p>
+                <p className="text-xs tracking-[0.2em] uppercase text-white/55" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{stat.label}</p>
               </div>
             ))}
           </div>
@@ -102,7 +102,7 @@ export default function EvenementPrivePage() {
       </section>
 
       {/* SERVICES */}
-      <section className="py-24 bg-[#080E0C] relative">
+      <section className="py-24 bg-black relative">
         <div className="container mx-auto px-4">
           <SectionTitle
             eyebrow="Ce que nous proposons"
@@ -112,15 +112,15 @@ export default function EvenementPrivePage() {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {services.map((service) => (
-              <div key={service.title} className="relative bg-[#111A17] border border-[#C9A96E]/10 p-8 group hover:-translate-y-1 transition-transform duration-300">
+              <div key={service.title} className="relative bg-[#0A0A0A] border border-[#C9A96E]/10 p-8 group hover:-translate-y-1 transition-transform duration-300">
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/60 to-transparent" />
                 <div className="absolute top-3 left-3 w-5 h-5 border-t border-l border-[#C9A96E]/50" />
                 <div className="absolute top-3 right-3 w-5 h-5 border-t border-r border-[#C9A96E]/50" />
                 <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-[#C9A96E]/50" />
                 <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-[#C9A96E]/50" />
                 <service.icon className="w-9 h-9 text-[#C9A96E] mb-5" />
-                <h3 className="text-xl text-[#E8D5B0] mb-3" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>{service.title}</h3>
-                <p className="text-[#c8c0b4] text-sm leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{service.description}</p>
+                <h3 className="text-xl text-white mb-3" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>{service.title}</h3>
+                <p className="text-white/70 text-sm leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{service.description}</p>
               </div>
             ))}
           </div>
@@ -128,7 +128,7 @@ export default function EvenementPrivePage() {
       </section>
 
       {/* PROCESS */}
-      <section className="py-24 bg-[#0C1915] relative">
+      <section className="py-24 bg-[#050505] relative">
         <div className="absolute inset-0 art-deco-pattern pointer-events-none opacity-60" />
         <div className="container mx-auto px-4 relative z-10">
           <SectionTitle
@@ -143,13 +143,13 @@ export default function EvenementPrivePage() {
                 {index < steps.length - 1 && (
                   <div className="hidden md:block absolute top-10 left-[calc(50%+2.5rem)] right-0 h-px bg-[#C9A96E]/20" />
                 )}
-                <div className="relative w-20 h-20 rounded-full border border-[#C9A96E]/40 bg-[#111A17] flex items-center justify-center mb-6 z-10">
-                  <span className="text-2xl text-[#C9A96E]" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>{step.number}</span>
+                <div className="relative w-20 h-20 rounded-full border border-[#C9A96E]/40 bg-[#0A0A0A] flex items-center justify-center mb-6 z-10">
+                  <span className="text-2xl text-[#C9A96E]" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>{step.number}</span>
                 </div>
-                <div className="bg-[#111A17] border border-[#C9A96E]/10 p-7 relative w-full">
+                <div className="bg-[#0A0A0A] border border-[#C9A96E]/10 p-7 relative w-full">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent" />
-                  <h3 className="text-lg text-[#E8D5B0] mb-3" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>{step.title}</h3>
-                  <p className="text-[#8A7B68] text-sm leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{step.description}</p>
+                  <h3 className="text-lg text-white mb-3" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>{step.title}</h3>
+                  <p className="text-white/55 text-sm leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{step.description}</p>
                 </div>
               </div>
             ))}

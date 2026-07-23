@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import { Briefcase, Star, Users, Coffee } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
@@ -28,10 +28,10 @@ const steps: StepItem[] = [
 
 export default function EvenementEntreprisePage() {
   return (
-    <div className="min-h-screen bg-[#080E0C] text-[#E8D5B0]">
+    <div className="min-h-screen bg-black text-white">
 
       {/* HERO */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-[#080E0C]">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1920&q=80"
             alt="Événement d’entreprise" fill className="object-cover opacity-20" priority />
@@ -55,7 +55,7 @@ export default function EvenementEntreprisePage() {
             <p className="text-xs tracking-[0.4em] uppercase text-[#C9A96E]/70 mb-4" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
               Good Old Drinks — Événement d’Entreprise
             </p>
-            <h1 className="text-3xl md:text-5xl text-[#E8D5B0] tracking-wide leading-tight" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
+            <h1 className="text-3xl md:text-5xl text-white tracking-wide leading-tight" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>
               L&apos;Excellence au Cœur de
               <span className="block text-[#C9A96E] mt-2">Vos Événements Professionnels</span>
             </h1>
@@ -67,13 +67,13 @@ export default function EvenementEntreprisePage() {
             <div className="w-2 h-2 rotate-45 bg-[#C9A96E]/50" />
             <div className="w-20 h-px bg-gradient-to-l from-transparent to-[#C9A96E]/60" />
           </div>
-          <p className="text-lg md:text-xl text-[#c8c0b4] max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
+          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
             Séminaires, afterworks, team buildings, inaugurations — élevons ensemble chaque moment professionnel au rang d’expérience mémorable.
           </p>
         </div>
       </section>
       {/* OVERVIEW */}
-      <section className="py-24 bg-[#0C1915] relative">
+      <section className="py-24 bg-[#050505] relative">
         <div className="absolute inset-0 art-deco-pattern pointer-events-none opacity-60" />
         <div className="container mx-auto px-4 relative z-10">
           <SectionTitle
@@ -83,7 +83,7 @@ export default function EvenementEntreprisePage() {
             className="mb-16"
           />
           <div className="max-w-4xl mx-auto mb-16">
-            <p className="text-[#c8c0b4] text-base md:text-lg leading-relaxed text-center" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
+            <p className="text-white/70 text-base md:text-lg leading-relaxed text-center" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
               De la petite réunion au grand gala de 1 000 personnes, nous adaptons notre dispositif à vos besoins.
               Cocktails brandés, animations team building, ateliers de mixologie ou service de réception classique —
               notre équipe sait se fondre dans chaque contexte professionnel tout en élevant l’expérience globale de vos invités.
@@ -91,13 +91,13 @@ export default function EvenementEntreprisePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {stats.map((stat) => (
-              <div key={stat.label} className="relative bg-[#111A17] border border-[#C9A96E]/10 p-8 text-center">
+              <div key={stat.label} className="relative bg-[#0A0A0A] border border-[#C9A96E]/10 p-8 text-center">
                 <div className="absolute top-3 left-3 w-5 h-5 border-t border-l border-[#C9A96E]/50" />
                 <div className="absolute top-3 right-3 w-5 h-5 border-t border-r border-[#C9A96E]/50" />
                 <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-[#C9A96E]/50" />
                 <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-[#C9A96E]/50" />
-                <p className="text-3xl text-[#C9A96E] mb-2" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>{stat.value}</p>
-                <p className="text-xs tracking-[0.2em] uppercase text-[#8A7B68]" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{stat.label}</p>
+                <p className="text-3xl text-[#C9A96E] mb-2" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>{stat.value}</p>
+                <p className="text-xs tracking-[0.2em] uppercase text-white/55" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{stat.label}</p>
               </div>
             ))}
           </div>
@@ -105,7 +105,7 @@ export default function EvenementEntreprisePage() {
       </section>
 
       {/* SERVICES */}
-      <section className="py-24 bg-[#080E0C] relative">
+      <section className="py-24 bg-black relative">
         <div className="container mx-auto px-4">
           <SectionTitle
             eyebrow="Nos Offres"
@@ -115,15 +115,15 @@ export default function EvenementEntreprisePage() {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {services.map((service) => (
-              <div key={service.title} className="relative bg-[#111A17] border border-[#C9A96E]/10 p-8 group hover:-translate-y-1 transition-transform duration-300">
+              <div key={service.title} className="relative bg-[#0A0A0A] border border-[#C9A96E]/10 p-8 group hover:-translate-y-1 transition-transform duration-300">
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/60 to-transparent" />
                 <div className="absolute top-3 left-3 w-5 h-5 border-t border-l border-[#C9A96E]/50" />
                 <div className="absolute top-3 right-3 w-5 h-5 border-t border-r border-[#C9A96E]/50" />
                 <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-[#C9A96E]/50" />
                 <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-[#C9A96E]/50" />
                 <service.icon className="w-9 h-9 text-[#C9A96E] mb-5" />
-                <h3 className="text-xl text-[#E8D5B0] mb-3" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>{service.title}</h3>
-                <p className="text-[#c8c0b4] text-sm leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{service.description}</p>
+                <h3 className="text-xl text-white mb-3" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>{service.title}</h3>
+                <p className="text-white/70 text-sm leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{service.description}</p>
               </div>
             ))}
           </div>
@@ -131,7 +131,7 @@ export default function EvenementEntreprisePage() {
       </section>
 
       {/* PROCESS */}
-      <section className="py-24 bg-[#0C1915] relative">
+      <section className="py-24 bg-[#050505] relative">
         <div className="absolute inset-0 art-deco-pattern pointer-events-none opacity-60" />
         <div className="container mx-auto px-4 relative z-10">
           <SectionTitle
@@ -146,13 +146,13 @@ export default function EvenementEntreprisePage() {
                 {index < steps.length - 1 && (
                   <div className="hidden md:block absolute top-10 left-[calc(50%+2.5rem)] right-0 h-px bg-[#C9A96E]/20" />
                 )}
-                <div className="relative w-20 h-20 rounded-full border border-[#C9A96E]/40 bg-[#111A17] flex items-center justify-center mb-6 z-10">
-                  <span className="text-2xl text-[#C9A96E]" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>{step.number}</span>
+                <div className="relative w-20 h-20 rounded-full border border-[#C9A96E]/40 bg-[#0A0A0A] flex items-center justify-center mb-6 z-10">
+                  <span className="text-2xl text-[#C9A96E]" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>{step.number}</span>
                 </div>
-                <div className="bg-[#111A17] border border-[#C9A96E]/10 p-7 relative w-full">
+                <div className="bg-[#0A0A0A] border border-[#C9A96E]/10 p-7 relative w-full">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent" />
-                  <h3 className="text-lg text-[#E8D5B0] mb-3" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>{step.title}</h3>
-                  <p className="text-[#8A7B68] text-sm leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{step.description}</p>
+                  <h3 className="text-lg text-white mb-3" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>{step.title}</h3>
+                  <p className="text-white/55 text-sm leading-relaxed" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>{step.description}</p>
                 </div>
               </div>
             ))}
@@ -160,19 +160,19 @@ export default function EvenementEntreprisePage() {
         </div>
       </section>
       {/* TESTIMONIAL */}
-      <section className="py-24 bg-[#080E0C] relative">
+      <section className="py-24 bg-black relative">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="relative bg-[#111A17] border border-[#C9A96E]/15 px-10 py-14">
+            <div className="relative bg-[#0A0A0A] border border-[#C9A96E]/15 px-10 py-14">
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/60 to-transparent" />
               <div className="absolute top-3 left-3 w-6 h-6 border-t border-l border-[#C9A96E]/50" />
               <div className="absolute top-3 right-3 w-6 h-6 border-t border-r border-[#C9A96E]/50" />
               <div className="absolute bottom-3 left-3 w-6 h-6 border-b border-l border-[#C9A96E]/50" />
               <div className="absolute bottom-3 right-3 w-6 h-6 border-b border-r border-[#C9A96E]/50" />
-              <div className="text-7xl text-[#C9A96E]/20 leading-none mb-4 select-none" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
+              <div className="text-7xl text-[#C9A96E]/20 leading-none mb-4 select-none" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>
                 &ldquo;
               </div>
-              <p className="text-[#c8c0b4] text-lg md:text-xl leading-relaxed mb-8 italic" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
+              <p className="text-white/70 text-lg md:text-xl leading-relaxed mb-8 italic" style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}>
                 Good Old Drinks a transformé notre afterwork annuel en un véritable événement corporate.
                 Les cocktails brandés à nos couleurs ont impressionné tous nos clients et partenaires.
                 Une équipe professionnelle, réactive et passionnée.
@@ -183,7 +183,7 @@ export default function EvenementEntreprisePage() {
                   <p className="text-[#C9A96E] text-sm tracking-widest uppercase" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
                     Sophie Laurent
                   </p>
-                  <p className="text-[#8A7B68] text-xs mt-1" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
+                  <p className="text-white/55 text-xs mt-1" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
                     Directrice Marketing, TechSud Group
                   </p>
                 </div>

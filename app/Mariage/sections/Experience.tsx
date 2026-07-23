@@ -1,10 +1,10 @@
-import React from "react";
+﻿import React from "react";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Image from "next/image";
 
 export default function Experience() {
   return (
-    <section className="py-20 px-4 bg-[#112B2A]">
+    <section className="py-20 px-4 bg-[#050505]">
       <div className="max-w-7xl mx-auto">
         <SectionTitle
           title="L'Expérience"
@@ -12,7 +12,7 @@ export default function Experience() {
         />
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 text-[#c7b79c]/90">
+          <div className="space-y-6 text-white/75">
             <p className="leading-relaxed">
               Notre passion pour la mixologie et notre amour du détail se
               reflètent dans chaque aspect de notre service. De la conception de
@@ -56,3 +56,4 @@ export default function Experience() {
     </section>
   );
 }
+

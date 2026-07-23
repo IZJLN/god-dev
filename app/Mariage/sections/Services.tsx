@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Wine, Users, Sparkles, Clock } from "lucide-react";
 import Image from "next/image";
 
@@ -28,13 +28,13 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="py-20 px-4 bg-[#1D0808]">
+    <section className="py-20 px-4 bg-black">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Left Column - Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            <h2 className="text-3xl font-serif text-[#c7b79c]">Nos Services</h2>
-            <p className="text-[#c7b79c]/90 text-lg leading-relaxed max-w-2xl">
+            <h2 className="text-3xl font-serif text-white">Nos Services</h2>
+            <p className="text-white/75 text-lg leading-relaxed max-w-2xl">
               Nous créons des expériences uniques qui transforment votre mariage
               en un moment inoubliable. Notre approche combine l&apos;élégance
               de l&apos;art déco avec des techniques modernes de mixologie pour
@@ -48,10 +48,10 @@ export default function Services() {
                   className="relative group hover:translate-y-[-4px] transition-transform duration-300"
                 >
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-[#c7b79c]/20 to-transparent opacity-50 rounded"></div>
-                  <div className="relative p-6 bg-[#112B2A] rounded">
-                    <service.icon className="w-10 h-10 text-[#c7b79c] mb-4" />
+                  <div className="relative p-6 bg-[#050505] rounded">
+                    <service.icon className="w-10 h-10 text-white mb-4" />
                     <h3 className="text-xl font-serif mb-3">{service.title}</h3>
-                    <p className="text-[#c7b79c]/80">{service.description}</p>
+                    <p className="text-white/65">{service.description}</p>
                   </div>
                 </div>
               ))}
@@ -70,13 +70,13 @@ export default function Services() {
                   alt="Service de bar mobile"
                   className="w-full h-[600px] object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1D0808] via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                 <div className="absolute bottom-8 left-8 right-8">
-                  <div className="p-6 bg-[#112B2A]/90 backdrop-blur">
+                  <div className="p-6 bg-black/80 backdrop-blur">
                     <h3 className="text-xl font-serif mb-2">
                       Excellence & Raffinement
                     </h3>
-                    <p className="text-[#c7b79c]/80">
+                    <p className="text-white/65">
                       Chaque détail est pensé pour créer une expérience
                       mémorable
                     </p>
@@ -90,3 +90,4 @@ export default function Services() {
     </section>
   );
 }
+

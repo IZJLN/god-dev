@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { GlassWater } from "lucide-react";
 
 export default function WeddingHero() {
@@ -11,7 +11,7 @@ export default function WeddingHero() {
             'url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80")',
         }}
       >
-        <div className="absolute inset-0 bg-[#112B2A]/80"></div>
+        <div className="absolute inset-0 bg-black/70"></div>
       </div>
 
       <div className="relative h-full flex items-center justify-center text-center px-4">
@@ -26,7 +26,7 @@ export default function WeddingHero() {
                 <div className="w-16 h-[1px] bg-[#c7b79c]"></div>
               </div>
 
-              <GlassWater className="w-12 h-12 text-[#c7b79c]" />
+              <GlassWater className="w-12 h-12 text-white/80" />
 
               <div className="hidden md:flex items-center flex-1">
                 <div className="w-16 h-[1px] bg-[#c7b79c]"></div>
@@ -63,7 +63,7 @@ export default function WeddingHero() {
             </div>
           </div>
 
-          <p className="mt-8 text-lg md:text-xl text-[#c7b79c]/90 max-w-2xl mx-auto">
+          <p className="mt-8 text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
             Créez des moments inoubliables avec nos services de bar mobile et
             nos cocktails signatures personnalisés
           </p>
@@ -72,3 +72,4 @@ export default function WeddingHero() {
     </div>
   );
 }
+

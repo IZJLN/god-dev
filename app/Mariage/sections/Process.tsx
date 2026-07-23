@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { ClipboardList, Palette, GlassWater, Calendar } from "lucide-react";
 
 const steps = [
@@ -30,13 +30,13 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-[#112B2A] via-[#1D0808] via-90% to-[#1D0808]">
+    <section className="py-20 px-4 bg-[#050505]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-serif mb-6">
             Notre Processus
           </h2>
-          <p className="text-[#c7b79c]/80 max-w-2xl mx-auto">
+          <p className="text-white/70 max-w-2xl mx-auto">
             Une approche méticuleuse pour créer une expérience cocktail unique
             et personnalisée pour votre mariage
           </p>
@@ -54,14 +54,14 @@ export default function Process() {
                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#c7b79c]"></div>
               </div>
 
-              <div className="relative p-8 bg-[#1D0808] h-full">
+              <div className="relative p-8 bg-black h-full">
                 <div className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-full bg-[#112B2A] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <step.icon className="w-8 h-8 text-[#c7b79c]" />
+                  <div className="w-16 h-16 rounded-full bg-[#050505] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <step.icon className="w-8 h-8 text-white" />
                   </div>
                   <span className="inline-block w-8 h-[1px] bg-[#c7b79c]/30 mb-4"></span>
                   <h3 className="text-xl font-serif mb-4">{step.title}</h3>
-                  <p className="text-[#c7b79c]/80 text-sm leading-relaxed">
+                  <p className="text-white/70 text-sm leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -85,3 +85,4 @@ export default function Process() {
     </section>
   );
 }
+

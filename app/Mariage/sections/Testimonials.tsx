@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Quote } from "lucide-react";
 import Image from "next/image";
 
@@ -23,7 +23,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-20 px-4 bg-[#112B2A] relative overflow-hidden">
+    <section className="py-20 px-4 bg-[#050505] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -37,7 +37,7 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-serif mb-6">Témoignages</h2>
-          <p className="text-[#c7b79c]/80 max-w-2xl mx-auto">
+          <p className="text-white/80 max-w-2xl mx-auto">
             Découvrez ce que nos mariés disent de leur expérience avec nous
           </p>
         </div>
@@ -63,7 +63,7 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <div className="relative p-8 bg-[#1D0808]">
+              <div className="relative p-8 bg-black">
                 <div className="flex gap-6">
                   <div className="flex-shrink-0 w-1/3">
                     <div className="aspect-[3/4] overflow-hidden">
@@ -77,13 +77,13 @@ export default function Testimonials() {
                     </div>
                   </div>
                   <div className="flex-grow">
-                    <Quote className="w-8 h-8 text-[#c7b79c] mb-4" />
-                    <p className="text-[#c7b79c]/90 mb-6 italic leading-relaxed">
+                    <Quote className="w-8 h-8 text-white mb-4" />
+                    <p className="text-white/80 mb-6 italic leading-relaxed">
                       {testimonial.quote}
                     </p>
-                    <div className="text-[#c7b79c]">
+                    <div className="text-white">
                       <p className="font-serif text-lg">{testimonial.author}</p>
-                      <p className="text-sm text-[#c7b79c]/70">
+                      <p className="text-sm text-white/60">
                         {testimonial.event}
                       </p>
                     </div>
@@ -97,3 +97,4 @@ export default function Testimonials() {
     </section>
   );
 }
+

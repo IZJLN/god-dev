@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import SectionTitle from "../../../components/ui/SectionTitle";
 import Image from "next/image";
 
@@ -31,7 +31,7 @@ const images = [
 
 export default function Gallery() {
   return (
-    <section className="py-20 px-4 bg-[#1D0808]">
+    <section className="py-20 px-4 bg-black">
       <div className="max-w-7xl mx-auto">
         <SectionTitle
           title="Notre Galerie"
@@ -50,8 +50,8 @@ export default function Gallery() {
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
-              <div className="absolute inset-0 bg-[#112B2A]/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span className="text-lg font-serif text-[#c7b79c]">
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span className="text-lg font-serif text-white">
                   {image.caption}
                 </span>
               </div>
@@ -62,3 +62,4 @@ export default function Gallery() {
     </section>
   );
 }
+
