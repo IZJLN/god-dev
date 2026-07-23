@@ -24,36 +24,30 @@ export default function LogoCarousel() {
           Ils nous font confiance
         </p>
       </div>
-      <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-        <ul className="flex items-center justify-center md:justify-start [&_li]:mx-10 [&_img]:max-w-none animate-infinite-scroll">
-          {logos.map((logo, index) => (
-            <li key={index}>
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                className="object-contain h-10 w-auto opacity-50 hover:opacity-80 transition-opacity duration-300 invert"
-                width={160}
-                height={40}
-              />
-            </li>
+
+      <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+        {/* Single wrapper animated at -50% so the loop is seamless */}
+        <div className="flex w-max animate-infinite-scroll">
+          {[0, 1].map((copy) => (
+            <ul
+              key={copy}
+              className="flex items-center shrink-0"
+              aria-hidden={copy === 1 ? true : undefined}
+            >
+              {logos.map((logo, index) => (
+                <li key={index} className="mx-12">
+                  <Image
+                    src={logo.src}
+                    alt={copy === 0 ? logo.alt : ""}
+                    className="object-contain h-10 w-auto opacity-65 hover:opacity-95 transition-opacity duration-300 brightness-0 invert"
+                    width={160}
+                    height={40}
+                  />
+                </li>
+              ))}
+            </ul>
           ))}
-        </ul>
-        <ul
-          className="flex items-center justify-center md:justify-start [&_li]:mx-10 [&_img]:max-w-none animate-infinite-scroll"
-          aria-hidden="true"
-        >
-          {logos.map((logo, index) => (
-            <li key={index}>
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                className="object-contain h-10 w-auto opacity-50 hover:opacity-80 transition-opacity duration-300 invert"
-                width={160}
-                height={40}
-              />
-            </li>
-          ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

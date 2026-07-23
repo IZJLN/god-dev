@@ -41,7 +41,7 @@ const config: Config = {
       keyframes: {
         scroll: {
           "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(-50%)" },
         },
         fadeIn: {
           "0%": { opacity: "0", transform: "translateY(12px)" },
