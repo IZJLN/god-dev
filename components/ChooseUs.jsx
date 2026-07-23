@@ -38,7 +38,7 @@ const ChooseUs = () => {
                 alt={item.label}
                 width={48}
                 height={48}
-                className="opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                className="opacity-90 group-hover:opacity-100 transition-opacity duration-300"
               />
               <h3
                 className="text-xs tracking-[0.2em] uppercase text-white/60 group-hover:text-white/90 transition-colors duration-300"

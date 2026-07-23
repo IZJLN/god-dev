@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Phone, Mail, Instagram, Facebook } from "lucide-react";
@@ -22,6 +23,11 @@ const serviceLinks = [
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -35,28 +41,19 @@ const MobileNav = () => {
 
   const close = () => setIsOpen(false);
 
-  return (
-    <div className="lg:hidden">
-      {/* Burger button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        aria-label="Ouvrir le menu"
-        className="flex items-center justify-center w-10 h-10 text-white/60 hover:text-white transition-colors duration-200"
-      >
-        <Menu size={26} />
-      </button>
-
+  const overlay = (
+    <>
       {/* Backdrop */}
       <div
         onClick={close}
-        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       />
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-[85%] max-w-sm bg-black border-l border-white/8 flex flex-col transition-transform duration-400 ease-in-out ${
+        className={`fixed top-0 right-0 z-[201] h-full w-[85%] max-w-sm bg-[#0a0a0a] border-l border-white/8 flex flex-col transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -66,14 +63,11 @@ const MobileNav = () => {
           <button
             onClick={close}
             aria-label="Fermer le menu"
-            className="flex items-center justify-center w-9 h-9 text-white/50 hover:text-white transition-colors duration-200"
+            className="flex items-center justify-center w-9 h-9 text-white/70 hover:text-white transition-colors duration-200"
           >
             <X size={22} />
           </button>
         </div>
-
-        {/* Thin separator line */}
-        <div className="h-px bg-white/5 mx-6 my-1" />
 
         {/* Nav links */}
         <nav className="flex-1 overflow-y-auto px-6 py-4">
@@ -84,16 +78,16 @@ const MobileNav = () => {
                   <>
                     <button
                       onClick={() => setServicesOpen((v) => !v)}
-                      className="w-full flex items-center justify-between py-4 text-left border-b border-white/5 group"
+                      className="w-full flex items-center justify-between py-4 text-left border-b border-white/8 group"
                     >
                       <span
-                        className="text-sm tracking-[0.2em] uppercase text-white/55 group-hover:text-white transition-colors duration-200"
+                        className="text-sm tracking-[0.2em] uppercase text-white/80 group-hover:text-white transition-colors duration-200"
                         style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                       >
                         {link.label}
                       </span>
                       <span
-                        className={`text-white/30 text-xs transition-transform duration-300 ${
+                        className={`text-white/50 text-xs transition-transform duration-300 ${
                           servicesOpen ? "rotate-180" : ""
                         }`}
                       >
@@ -112,9 +106,9 @@ const MobileNav = () => {
                             <Link
                               href={s.href}
                               onClick={close}
-                              className="flex items-center gap-2 py-2.5 text-white/40 hover:text-white/80 transition-colors duration-200"
+                              className="flex items-center gap-2 py-2.5 text-white/60 hover:text-white transition-colors duration-200"
                             >
-                              <div className="w-1 h-1 bg-white/25 rotate-45 flex-shrink-0" />
+                              <div className="w-1 h-1 bg-[#C9A96E]/60 rotate-45 flex-shrink-0" />
                               <span
                                 className="text-xs tracking-[0.15em] uppercase"
                                 style={{ fontFamily: "var(--font-oswald), sans-serif" }}
@@ -131,15 +125,15 @@ const MobileNav = () => {
                   <Link
                     href={link.href}
                     onClick={close}
-                    className="flex items-center justify-between py-4 border-b border-white/5 group"
+                    className="flex items-center justify-between py-4 border-b border-white/8 group"
                   >
                     <span
-                      className="text-sm tracking-[0.2em] uppercase text-white/55 group-hover:text-white transition-colors duration-200"
+                      className="text-sm tracking-[0.2em] uppercase text-white/80 group-hover:text-white transition-colors duration-200"
                       style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                     >
                       {link.label}
                     </span>
-                    <span className="text-white/20 group-hover:text-white/50 group-hover:translate-x-1 transition-all duration-200 text-xs">
+                    <span className="text-white/40 group-hover:text-white/70 group-hover:translate-x-1 transition-all duration-200 text-xs">
                       →
                     </span>
                   </Link>
@@ -151,14 +145,12 @@ const MobileNav = () => {
 
         {/* Bottom section */}
         <div className="px-6 py-6 border-t border-white/8 space-y-5">
-
-          {/* Contact info */}
           <div className="space-y-2">
             <a
               href="tel:+33659322131"
-              className="flex items-center gap-3 text-white/40 hover:text-white/70 transition-colors duration-200"
+              className="flex items-center gap-3 text-white/60 hover:text-white/90 transition-colors duration-200"
             >
-              <Phone size={13} className="text-white/25 flex-shrink-0" />
+              <Phone size={13} className="text-white/40 flex-shrink-0" />
               <span
                 className="text-xs tracking-wide"
                 style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
@@ -168,9 +160,9 @@ const MobileNav = () => {
             </a>
             <a
               href="mailto:goodolddrinks@gmail.com"
-              className="flex items-center gap-3 text-white/40 hover:text-white/70 transition-colors duration-200"
+              className="flex items-center gap-3 text-white/60 hover:text-white/90 transition-colors duration-200"
             >
-              <Mail size={13} className="text-white/25 flex-shrink-0" />
+              <Mail size={13} className="text-white/40 flex-shrink-0" />
               <span
                 className="text-xs tracking-wide"
                 style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
@@ -180,14 +172,13 @@ const MobileNav = () => {
             </a>
           </div>
 
-          {/* Social links */}
           <div className="flex items-center gap-3">
             <a
               href="https://www.instagram.com/goodolddrinks"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="flex items-center justify-center w-9 h-9 border border-white/15 hover:border-white/40 text-white/40 hover:text-white transition-all duration-200"
+              className="flex items-center justify-center w-9 h-9 border border-white/20 hover:border-[#C9A96E]/60 text-white/60 hover:text-white transition-all duration-200"
             >
               <Instagram size={15} />
             </a>
@@ -196,13 +187,29 @@ const MobileNav = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="flex items-center justify-center w-9 h-9 border border-white/15 hover:border-white/40 text-white/40 hover:text-white transition-all duration-200"
+              className="flex items-center justify-center w-9 h-9 border border-white/20 hover:border-[#C9A96E]/60 text-white/60 hover:text-white transition-all duration-200"
             >
               <Facebook size={15} />
             </a>
           </div>
         </div>
       </div>
+    </>
+  );
+
+  return (
+    <div className="lg:hidden">
+      {/* Burger button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        aria-label="Ouvrir le menu"
+        className="flex items-center justify-center w-10 h-10 text-white/70 hover:text-white transition-colors duration-200"
+      >
+        <Menu size={26} />
+      </button>
+
+      {/* Portal — renders outside the header to avoid backdrop-filter containment */}
+      {mounted && createPortal(overlay, document.body)}
     </div>
   );
 };

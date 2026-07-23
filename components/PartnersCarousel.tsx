@@ -31,7 +31,7 @@ export default function LogoCarousel() {
               <Image
                 src={logo.src}
                 alt={logo.alt}
-                className="object-contain h-10 w-auto opacity-25 hover:opacity-50 transition-opacity duration-300 invert"
+                className="object-contain h-10 w-auto opacity-50 hover:opacity-80 transition-opacity duration-300 invert"
                 width={160}
                 height={40}
               />
@@ -47,7 +47,7 @@ export default function LogoCarousel() {
               <Image
                 src={logo.src}
                 alt={logo.alt}
-                className="object-contain h-10 w-auto opacity-25 hover:opacity-50 transition-opacity duration-300 invert"
+                className="object-contain h-10 w-auto opacity-50 hover:opacity-80 transition-opacity duration-300 invert"
                 width={160}
                 height={40}
               />
