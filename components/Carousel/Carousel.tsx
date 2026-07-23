@@ -3,12 +3,28 @@ import CocktailCarousel from "./CocktailCarousel";
 import MockctailCarousel from "./MocktailCarousel";
 import SectionTitle from "../ui/SectionTitle";
 import ClassicCarousel from "./ClasicCocktail/ClassicCarousel";
-import cocktailsData from "@/data/cocktails.json";
+import { supabase } from "@/lib/supabase";
+import cocktailsFallback from "@/data/cocktails.json";
 
-function Carousel() {
-  const cocktailsList = cocktailsData.cocktails ?? [];
-  const mocktailsList = cocktailsData.mocktails ?? [];
-  const classiquesList = cocktailsData.classiques ?? [];
+async function Carousel() {
+  let cocktailsList = cocktailsFallback.cocktails;
+  let mocktailsList = cocktailsFallback.mocktails;
+  let classiquesList = cocktailsFallback.classiques;
+
+  try {
+    const { data, error } = await supabase
+      .from("cocktails")
+      .select("*")
+      .order("id", { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      cocktailsList = data.filter((c) => c.category === "cocktails");
+      mocktailsList = data.filter((c) => c.category === "mocktails");
+      classiquesList = data.filter((c) => c.category === "classiques");
+    }
+  } catch {
+    // Supabase unavailable — using local JSON fallback
+  }
 
   return (
     <div id="cocktails" className="bg-black py-24">
