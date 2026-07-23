@@ -3,17 +3,12 @@ import CocktailCarousel from "./CocktailCarousel";
 import MockctailCarousel from "./MocktailCarousel";
 import SectionTitle from "../ui/SectionTitle";
 import ClassicCarousel from "./ClasicCocktail/ClassicCarousel";
-import { supabase } from "@/lib/supabase";
+import cocktailsData from "@/data/cocktails.json";
 
-async function Carousel() {
-  const { data } = await supabase
-    .from("cocktails")
-    .select("*")
-    .order("id", { ascending: true });
-
-  const cocktailsList = data?.filter((c) => c.category === "cocktails") ?? [];
-  const mocktailsList = data?.filter((c) => c.category === "mocktails") ?? [];
-  const classiquesList = data?.filter((c) => c.category === "classiques") ?? [];
+function Carousel() {
+  const cocktailsList = cocktailsData.cocktails ?? [];
+  const mocktailsList = cocktailsData.mocktails ?? [];
+  const classiquesList = cocktailsData.classiques ?? [];
 
   return (
     <div id="cocktails" className="bg-black py-24">
