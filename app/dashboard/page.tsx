@@ -123,8 +123,13 @@ function ImageUploadField({ value, onChange }: { value: string; onChange: (url: 
     try {
       const url = await uploadImage(file)
       onChange(url)
-    } catch {
-      alert("Erreur lors du téléversement de l'image.")
+    } catch (err) {
+      const msg = err instanceof Error
+        ? err.message
+        : (typeof err === 'object' && err !== null && 'message' in err)
+          ? String((err as { message: unknown }).message)
+          : JSON.stringify(err)
+      alert(`Erreur upload : ${msg}`)
     } finally {
       setUploading(false)
       e.target.value = ''
@@ -188,6 +193,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleteId, setDeleteId] = useState<number | null>(null)
+  const [fetchError, setFetchError] = useState<string | null>(null)
 
   // ── Auth ────────────────────────────────────────────────────────────────────────────────────
 
@@ -224,12 +230,21 @@ export default function DashboardPage() {
         .select('*')
         .order('id', { ascending: true })
       if (error) throw error
+      setFetchError(null)
       setCocktailData({
         cocktails: data?.filter(c => c.category === 'cocktails') ?? [],
         mocktails: data?.filter(c => c.category === 'mocktails') ?? [],
         classiques: data?.filter(c => c.category === 'classiques') ?? [],
       })
-    } catch { console.error('Failed to fetch cocktails') }
+    } catch (err) {
+      const msg = err instanceof Error
+        ? err.message
+        : (typeof err === 'object' && err !== null && 'message' in err)
+          ? String((err as { message: unknown }).message)
+          : JSON.stringify(err)
+      console.error('Failed to fetch cocktails:', err)
+      setFetchError(msg)
+    }
   }, [])
 
   const fetchReals = useCallback(async () => {
@@ -735,6 +750,22 @@ export default function DashboardPage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-10">
+
+        {fetchError && (
+          <div className="mb-8 flex items-start gap-3 rounded-xl border border-red-500/30 bg-red-500/8 px-5 py-4">
+            <span className="mt-0.5 text-red-400 text-base leading-none">⚠</span>
+            <div>
+              <p className="text-red-400 text-sm font-medium">Erreur de connexion à la base de données</p>
+              <p className="text-red-400/60 text-xs mt-1 font-mono break-all">{fetchError}</p>
+              <button
+                onClick={() => { setFetchError(null); fetchCocktails() }}
+                className="mt-2 text-xs text-red-400 hover:text-red-300 underline underline-offset-2"
+              >
+                Réessayer
+              </button>
+            </div>
+          </div>
+        )}
 
         {loading ? (
           <div className="flex items-center justify-center py-40">

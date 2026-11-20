@@ -1,4 +1,5 @@
 import React from "react";
+import { unstable_noStore as noStore } from "next/cache";
 import CocktailCarousel from "./CocktailCarousel";
 import MockctailCarousel from "./MocktailCarousel";
 import SectionTitle from "../ui/SectionTitle";
@@ -43,6 +44,7 @@ const bars = [
 ];
 
 async function Carousel() {
+  noStore();
   let cocktailsList = cocktailsFallback.cocktails;
   let mocktailsList = cocktailsFallback.mocktails;
   let classiquesList = cocktailsFallback.classiques;
