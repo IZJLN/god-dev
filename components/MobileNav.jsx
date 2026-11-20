@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Phone, Mail, Instagram, Facebook } from "lucide-react";
+import { Menu, X, Phone, Mail } from "lucide-react";
+import InstagramIcon from "./ui/InstagramIcon";
 import Logo from "@/assets/DORE.png";
 
 const navLinks = [
@@ -178,18 +179,9 @@ const MobileNav = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="flex items-center justify-center w-9 h-9 border border-white/20 hover:border-[#C9A96E]/60 text-white/60 hover:text-white transition-all duration-200"
+              className="flex items-center justify-center w-9 h-9 border border-white/20 hover:border-[#E1306C]/50 transition-all duration-200"
             >
-              <Instagram size={15} />
-            </a>
-            <a
-              href="https://www.facebook.com/good.old.drinks"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="flex items-center justify-center w-9 h-9 border border-white/20 hover:border-[#C9A96E]/60 text-white/60 hover:text-white transition-all duration-200"
-            >
-              <Facebook size={15} />
+              <InstagramIcon size={15} />
             </a>
           </div>
         </div>

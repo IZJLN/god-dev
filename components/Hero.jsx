@@ -1,4 +1,4 @@
-import { Instagram, Facebook } from "lucide-react";
+import InstagramIcon from "./ui/InstagramIcon";
 import Link from "next/link";
 import Image from "next/image";
 import PhotoHeader from "@/assets/PhotoHeader.jpg";
@@ -68,19 +68,10 @@ const Hero = () => {
                 href="https://www.instagram.com/goodolddrinks"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 border border-white/25 flex items-center justify-center text-white/50 hover:text-white hover:border-white/60 transition-all duration-300"
+                className="w-9 h-9 border border-white/20 hover:border-[#E1306C]/50 flex items-center justify-center transition-all duration-300"
                 aria-label="Instagram"
               >
-                <Instagram size={15} />
-              </a>
-              <a
-                href="https://www.facebook.com/good.old.drinks"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 border border-white/25 flex items-center justify-center text-white/50 hover:text-white hover:border-white/60 transition-all duration-300"
-                aria-label="Facebook"
-              >
-                <Facebook size={15} />
+                <InstagramIcon size={15} />
               </a>
             </div>
           </div>

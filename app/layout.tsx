@@ -56,6 +56,16 @@ export default function RootLayout({
       <body
         className={`${oswald.variable} ${playfair.variable} ${cormorant.variable} ${lato.variable} font-primary antialiased`}
       >
+        {/* Gradient SVG global — referenced by InstagramIcon as url(#ig-gradient) */}
+        <svg width="0" height="0" aria-hidden="true" style={{ position: 'absolute' }}>
+          <defs>
+            <linearGradient id="ig-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#FCAF45" />
+              <stop offset="35%" stopColor="#E1306C" />
+              <stop offset="70%" stopColor="#833AB4" />
+            </linearGradient>
+          </defs>
+        </svg>
         <ParallaxWrapper>
           <Header />
           {children}

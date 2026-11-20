@@ -1,5 +1,6 @@
 import React from "react";
-import { Instagram, Facebook, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
+import InstagramIcon from "./ui/InstagramIcon";
 import Image from "next/image";
 import Logo from "@/assets/DORE.png";
 
@@ -25,21 +26,15 @@ export default function Footer() {
               Barman privé pour tous vos événements
             </p>
             <div className="flex gap-3">
-              {[
-                { href: "https://www.instagram.com/goodolddrinks", icon: Instagram, label: "Instagram" },
-                { href: "https://www.facebook.com/good.old.drinks", icon: Facebook, label: "Facebook" },
-              ].map(({ href, icon: Icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all duration-300"
-                >
-                  <Icon size={15} />
-                </a>
-              ))}
+              <a
+                href="https://www.instagram.com/goodolddrinks"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-9 h-9 border border-white/15 hover:border-[#E1306C]/40 flex items-center justify-center transition-all duration-300"
+              >
+                <InstagramIcon size={15} />
+              </a>
             </div>
           </div>
 
