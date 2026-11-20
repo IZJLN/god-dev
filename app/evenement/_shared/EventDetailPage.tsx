@@ -12,6 +12,7 @@ export interface EventContent {
     image: string;
     title: string;
     titleAccent: string;
+    subtitle?: string;
     date: string;
     location: string;
     guests: string;
@@ -87,12 +88,20 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
               <div className="h-px w-16 bg-[#C9A96E]/50" />
             </div>
             <h1
-              className="text-4xl md:text-6xl lg:text-7xl text-white tracking-wide leading-tight mb-8"
+              className="text-4xl md:text-6xl lg:text-7xl text-white tracking-wide leading-tight mb-4"
               style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif" }}
             >
               {hero.title}{" "}
               <span className="text-[#C9A96E]">{hero.titleAccent}</span>
             </h1>
+            {hero.subtitle && (
+              <p
+                className="text-[#C9A96E]/70 text-base md:text-lg tracking-widest uppercase mb-6"
+                style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
+              >
+                {hero.subtitle}
+              </p>
+            )}
             <div className="flex flex-wrap items-center justify-center gap-6 mb-8">
               <span
                 className="inline-flex items-center gap-2 text-white/70 text-sm"

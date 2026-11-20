@@ -1,5 +1,5 @@
 import React from "react";
-import { PartyPopper, Building2, Users, GlassWater } from "lucide-react";
+import { PartyPopper, Building2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import SectionTitle from "./ui/SectionTitle";
@@ -22,23 +22,6 @@ const services = [
     image:
       "https://images.unsplash.com/photo-1575444758702-4a6b9222336e?auto=format&fit=crop&q=80",
     href: "/evenement-prive",
-  },
-  {
-    icon: Users,
-    title: "Événement d'Entreprise",
-    description:
-      "Impressionnez vos collaborateurs et clients avec un service de bar mobile haut de gamme, idéal pour renforcer vos relations professionnelles.",
-    image:
-      "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=500&auto=format&fit=crop&q=80",
-    href: "/evenement-entreprise",
-  },
-  {
-    icon: GlassWater,
-    title: "Consulting",
-    description:
-      "Besoin d'un accompagnement personnalisé ? Nous mettons notre expertise à votre service pour concevoir ou améliorer votre projet bar, de l'idée à la réalisation.",
-    image: "https://images.unsplash.com/photo-1513470939372-bd520e7d77db?q=80",
-    href: "/consulting",
   },
 ];
 

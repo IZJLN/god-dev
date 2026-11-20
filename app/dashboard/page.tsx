@@ -16,7 +16,7 @@ type MainSection = 'cocktails' | 'realisations'
 type CocktailCategory = 'cocktails' | 'mocktails' | 'classiques'
 
 interface CocktailItem { id: number; name: string; image: string; description: string; year: string }
-interface RealisationItem { id: number; title: string; date: string; location: string; description: string; image: string; path: string }
+interface RealisationItem { id: number; title: string; date: string; location: string; description: string; image: string; path: string; subtitle?: string }
 interface CocktailData { cocktails: CocktailItem[]; mocktails: CocktailItem[]; classiques: CocktailItem[] }
 
 interface EventCocktail { name: string; image: string; description: string; ingredients: string[] }
@@ -37,7 +37,7 @@ const COCKTAIL_TABS: { key: CocktailCategory; label: string }[] = [
   { key: 'classiques', label: 'Classiques' },
 ]
 const EMPTY_COCKTAIL = { name: '', image: '', description: '', year: '' }
-const EMPTY_REAL = { title: '', date: '', location: '', description: '', image: '', path: '' }
+const EMPTY_REAL = { title: '', date: '', location: '', description: '', image: '', path: '', subtitle: '' }
 const EMPTY_EVENT_COCKTAIL: EventCocktail = { name: '', image: '', description: '', ingredients: [] }
 const EMPTY_GALLERY: EventGalleryItem = { src: '', alt: '' }
 
@@ -57,7 +57,7 @@ function slugFromTitle(title: string): string {
 }
 
 const DEFAULT_EVENT_CONTENT = {
-  hero: { image: '', title: '', titleAccent: '', date: '', location: '', guests: '', description: '' },
+  hero: { image: '', title: '', titleAccent: '', subtitle: '', date: '', location: '', guests: '', description: '' },
   story: { eyebrow: '', title: '', paragraphs: [''], image: '', stats: [{ value: '', label: '' }, { value: '', label: '' }, { value: '', label: '' }] },
   cocktails: [],
   gallery: [],
@@ -352,7 +352,7 @@ export default function DashboardPage() {
   function openAddReal() { setEditingReal(null); setRealForm(EMPTY_REAL); setRealModal(true) }
   function openEditReal(item: RealisationItem) {
     setEditingReal(item)
-    setRealForm({ title: item.title, date: item.date, location: item.location, description: item.description, image: item.image, path: item.path })
+    setRealForm({ title: item.title, date: item.date, location: item.location, description: item.description, image: item.image, path: item.path, subtitle: item.subtitle ?? '' })
     setRealModal(true)
   }
   function closeRealModal() { setRealModal(false); setEditingReal(null); setRealForm(EMPTY_REAL) }
@@ -393,6 +393,7 @@ export default function DashboardPage() {
               hero: {
                 ...DEFAULT_EVENT_CONTENT.hero,
                 title: realForm.title,
+                subtitle: realForm.subtitle,
                 date: realForm.date,
                 location: realForm.location,
                 image: realForm.image,
@@ -431,16 +432,28 @@ export default function DashboardPage() {
     const slug = slugFromPath(item.path)
     if (!slug) return
     try {
-      const { data, error } = await supabase
+      let { data } = await supabase
         .from('evenements')
         .select('content')
         .eq('slug', slug)
         .single()
-      if (error || !data) return alert('Aucune page de contenu trouvée pour cette réalisation.')
+
+      if (!data) {
+        const defaultContent = {
+          ...DEFAULT_EVENT_CONTENT,
+          hero: { ...DEFAULT_EVENT_CONTENT.hero, title: item.title, subtitle: item.subtitle ?? '', date: item.date, location: item.location, image: item.image, description: item.description },
+          story: { ...DEFAULT_EVENT_CONTENT.story, title: item.title },
+        }
+        await supabase.from('evenements').insert({ slug, content: defaultContent })
+        data = { content: defaultContent }
+      }
+
+      setEditingReal(item)
+      setRealForm({ title: item.title, date: item.date, location: item.location, description: item.description, image: item.image, path: item.path, subtitle: item.subtitle ?? '' })
       setContentData(data.content as EventContent)
       setContentEditorSlug(slug)
       setContentEditorTitle(item.title)
-      setOpenAccordions(new Set(['hero']))
+      setOpenAccordions(new Set(['fiche', 'hero']))
     } catch { alert('Erreur lors du chargement du contenu.') }
   }
 
@@ -448,17 +461,24 @@ export default function DashboardPage() {
     setContentEditorSlug(null)
     setContentData(null)
     setContentEditorTitle('')
+    setEditingReal(null)
+    setRealForm(EMPTY_REAL)
   }
 
   async function saveContent() {
     if (!contentEditorSlug || !contentData) return
     setContentSaving(true)
     try {
-      const { error } = await supabase
-        .from('evenements')
-        .update({ content: contentData })
-        .eq('slug', contentEditorSlug)
-      if (error) throw error
+      const saves: Promise<unknown>[] = [
+        supabase.from('evenements').update({ content: contentData }).eq('slug', contentEditorSlug).then(({ error }) => { if (error) throw error }),
+      ]
+      if (editingReal) {
+        saves.push(
+          supabase.from('realisations').update({ title: realForm.title, date: realForm.date, location: realForm.location, description: realForm.description, image: realForm.image, subtitle: realForm.subtitle }).eq('id', editingReal.id).then(({ error }) => { if (error) throw error })
+        )
+      }
+      await Promise.all(saves)
+      await fetchReals()
     } catch { alert('Erreur lors de la sauvegarde.') } finally { setContentSaving(false) }
   }
 
@@ -590,6 +610,45 @@ export default function DashboardPage() {
 
         <main className="max-w-4xl mx-auto px-6 py-10 space-y-4">
           <p className="text-white/30 text-xs uppercase tracking-widest mb-8">Modification du contenu de la page</p>
+
+          {/* ── FICHE ── */}
+          {editingReal && (
+            <AccordionSection id="fiche" label="📋  Fiche — Carte de la réalisation" open={openAccordions.has('fiche')} onToggle={() => toggleAccordion('fiche')}>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <FieldLabel>Titre</FieldLabel>
+                  <TextInput value={realForm.title} onChange={v => setRealForm(f => ({ ...f, title: v }))} placeholder="Soirée Gruissan" />
+                </div>
+                <div>
+                  <FieldLabel>Sous-titre <span className="normal-case text-white/20">(optionnel)</span></FieldLabel>
+                  <TextInput value={realForm.subtitle ?? ''} onChange={v => setRealForm(f => ({ ...f, subtitle: v }))} placeholder="Villa de Luxe · 80 invités" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <FieldLabel>Date</FieldLabel>
+                  <TextInput value={realForm.date} onChange={v => setRealForm(f => ({ ...f, date: v }))} placeholder="Août 2024" />
+                </div>
+                <div>
+                  <FieldLabel>Lieu</FieldLabel>
+                  <TextInput value={realForm.location} onChange={v => setRealForm(f => ({ ...f, location: v }))} placeholder="Gruissan, Occitanie" />
+                </div>
+              </div>
+              <div>
+                <FieldLabel>Image principale</FieldLabel>
+                <ImageUploadField value={realForm.image} onChange={v => setRealForm(f => ({ ...f, image: v }))} />
+                {realForm.image && (
+                  <div className="relative h-24 mt-3 rounded-xl overflow-hidden border border-white/8">
+                    <Image src={realForm.image} alt="Aperçu" fill className="object-cover" unoptimized />
+                  </div>
+                )}
+              </div>
+              <div>
+                <FieldLabel>Description</FieldLabel>
+                <TextArea value={realForm.description} onChange={v => setRealForm(f => ({ ...f, description: v }))} rows={3} placeholder="Un moment unique pour..." />
+              </div>
+            </AccordionSection>
+          )}
 
           {/* ── HERO ── */}
           <AccordionSection id="hero" label="🖼️  Héro — Image & titres" open={openAccordions.has('hero')} onToggle={() => toggleAccordion('hero')}>
@@ -737,7 +796,7 @@ export default function DashboardPage() {
                       <X size={14} />
                     </button>
                     <p className="text-white/30 text-xs">Photo {i + 1}</p>
-                    <TextInput value={g.src} onChange={v => setGalleryItem(i, { src: v })} placeholder="https://..." />
+                    <ImageUploadField value={g.src} onChange={v => setGalleryItem(i, { src: v })} />
                     <TextInput value={g.alt} onChange={v => setGalleryItem(i, { alt: v })} placeholder="Description alt" />
                     {g.src && (
                       <div className="relative aspect-square rounded-lg overflow-hidden border border-white/8">
@@ -991,17 +1050,12 @@ export default function DashboardPage() {
 
                       {/* Action buttons */}
                       <div className="flex items-center gap-2 mt-4">
-                        <button onClick={() => openEditReal(item)} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-amber-500/20 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/35 transition-all duration-200 text-xs font-medium">
-                          <Pencil size={13} />Fiche
+                        <button onClick={() => openContentEditor(item)} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-amber-500/20 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/35 transition-all duration-200 text-xs font-medium">
+                          <Pencil size={13} />Modifier
                         </button>
-                        {hasPage && (
-                          <button onClick={() => openContentEditor(item)} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-[#C9A96E]/20 text-[#C9A96E]/70 hover:bg-[#C9A96E]/10 hover:border-[#C9A96E]/40 hover:text-[#C9A96E] transition-all duration-200 text-xs font-medium">
-                            <FileText size={13} />Contenu
-                          </button>
-                        )}
                         <button onClick={() => deleteReal(item)} disabled={deleteId === item.id} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/35 transition-all duration-200 text-xs font-medium disabled:opacity-50">
                           {deleteId === item.id ? <div className="w-3.5 h-3.5 border border-red-400/30 border-t-red-400 rounded-full animate-spin" /> : <Trash2 size={13} />}
-                          Sup.
+                          Supprimer
                         </button>
                       </div>
                     </div>
@@ -1103,6 +1157,10 @@ export default function DashboardPage() {
                   <Image src={realForm.image} alt="Aperçu" fill className="object-cover" unoptimized />
                 </div>
               )}
+              <div>
+                <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Sous-titre <span className="normal-case text-white/20">(optionnel)</span></label>
+                <input type="text" value={realForm.subtitle} onChange={e => setRealForm(f => ({ ...f, subtitle: e.target.value }))} placeholder="Ex: Villa de Luxe · 80 invités" className="w-full bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors" />
+              </div>
               <div>
                 <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Description *</label>
                 <textarea value={realForm.description} onChange={e => setRealForm(f => ({ ...f, description: e.target.value }))} required rows={3} placeholder="Un moment unique pour..." className="w-full bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors resize-none" />
