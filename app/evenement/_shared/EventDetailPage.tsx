@@ -261,12 +261,12 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                           {description}
                         </p>
                       )}
-                      {ingredients.length > 0 && (
+                      {ingredients.filter(s => s.trim()).length > 0 && (
                         <ul
                           className="space-y-1.5 text-white/55 text-sm"
                           style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
                         >
-                          {ingredients.map((ing) => (
+                          {ingredients.filter(s => s.trim()).map((ing) => (
                             <li key={ing} className="flex items-center gap-2">
                               <span className="w-1 h-1 rounded-full bg-[#C9A96E]/40 flex-shrink-0" />
                               {ing}

@@ -763,7 +763,7 @@ export default function DashboardPage() {
                     <FieldLabel>Ingrédients (un par ligne)</FieldLabel>
                     <TextArea
                       value={c.ingredients.join('\n')}
-                      onChange={v => setEventCocktail(i, { ingredients: v.split('\n').map(s => s.trim()).filter(Boolean) })}
+                      onChange={v => setEventCocktail(i, { ingredients: v.split('\n') })}
                       rows={3}
                       placeholder={"Gin\nCitron vert\nThym frais"}
                     />
