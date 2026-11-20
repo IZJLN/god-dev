@@ -1,10 +1,11 @@
 import React from "react";
-import { PartyPopper, Building2 } from "lucide-react";
+import { PartyPopper, Building2, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import SectionTitle from "./ui/SectionTitle";
+import { supabase } from "@/lib/supabase";
 
-const services = [
+const STATIC_SERVICES = [
   {
     icon: PartyPopper,
     title: "Mariage",
@@ -25,7 +26,19 @@ const services = [
   },
 ];
 
-export default function Services() {
+async function getLastRealisation() {
+  const { data } = await supabase
+    .from("realisations")
+    .select("*")
+    .order("id", { ascending: false })
+    .limit(1)
+    .single();
+  return data;
+}
+
+export default async function Services() {
+  const lastEvent = await getLastRealisation();
+
   return (
     <section id="services" className="py-24 bg-black">
       <div className="container mx-auto px-6">
@@ -36,10 +49,11 @@ export default function Services() {
           className="mb-16"
         />
 
-        <div className="grid md:grid-cols-2 gap-4">
-          {services.map((service, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {STATIC_SERVICES.map((service, index) => (
             <ServiceCard key={index} service={service} />
           ))}
+          {lastEvent && <LastEventCard event={lastEvent} />}
         </div>
 
         <p
@@ -103,5 +117,75 @@ function ServiceCard({ service }) {
         </div>
       </div>
     </Link>
+  );
+}
+
+function LastEventCard({ event }) {
+  const isLink = event.path && event.path !== "#";
+  const Wrapper = isLink ? Link : "div";
+
+  return (
+    <Wrapper
+      href={isLink ? event.path : undefined}
+      className="group relative overflow-hidden h-[380px] bg-[#0a0a0a] block"
+    >
+      <Image
+        fill
+        src={event.image}
+        alt={event.title}
+        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-45"
+        unoptimized
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+
+      {/* Badge "Dernière réalisation" */}
+      <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-[#C9A96E]/15 border border-[#C9A96E]/30 backdrop-blur-sm rounded-full px-3 py-1">
+        <Sparkles size={10} className="text-[#C9A96E]" />
+        <span className="text-[#C9A96E] text-[0.6rem] uppercase tracking-widest" style={{ fontFamily: "var(--font-lato), sans-serif" }}>
+          Dernière réalisation
+        </span>
+      </div>
+
+      <div className="absolute inset-0 p-8 flex flex-col justify-end">
+        {/* Default */}
+        <div className="transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-3">
+          <h3
+            className="text-3xl text-white"
+            style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif", fontWeight: 700 }}
+          >
+            {event.title}
+          </h3>
+        </div>
+
+        {/* Hover */}
+        <div className="absolute inset-x-0 bottom-0 p-8 opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+          <h3
+            className="text-3xl text-white mb-3"
+            style={{ fontFamily: "var(--font-cormorant), var(--font-playfair), Georgia, serif", fontWeight: 700 }}
+          >
+            {event.title}
+          </h3>
+          {event.subtitle && (
+            <p className="text-[#C9A96E]/80 text-xs tracking-wide mb-2" style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}>
+              {event.subtitle}
+            </p>
+          )}
+          <p
+            className="text-white/75 text-sm leading-relaxed line-clamp-2 mb-5"
+            style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
+          >
+            {event.description}
+          </p>
+          {isLink && (
+            <div className="flex items-center gap-3">
+              <span className="text-[0.6rem] tracking-[0.25em] uppercase text-white/65" style={{ fontFamily: "var(--font-lato), sans-serif" }}>
+                Voir le détail
+              </span>
+              <div className="flex-1 h-px bg-white/15 max-w-[60px]" />
+            </div>
+          )}
+        </div>
+      </div>
+    </Wrapper>
   );
 }

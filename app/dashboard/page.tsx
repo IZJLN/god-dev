@@ -464,16 +464,14 @@ export default function DashboardPage() {
     if (!contentEditorSlug || !contentData) return
     setContentSaving(true)
     try {
-      const saves: Promise<unknown>[] = [
-        Promise.resolve(supabase.from('evenements').update({ content: contentData }).eq('slug', contentEditorSlug)).then(({ error }) => { if (error) throw error }),
-      ]
+      const { error: e1 } = await supabase.from('evenements').update({ content: contentData }).eq('slug', contentEditorSlug)
+      if (e1) throw e1
       if (editingReal) {
-        saves.push(
-          Promise.resolve(supabase.from('realisations').update({ title: realForm.title, date: realForm.date, location: realForm.location, description: realForm.description, image: realForm.image, subtitle: realForm.subtitle }).eq('id', editingReal.id)).then(({ error }) => { if (error) throw error })
-        )
+        const { error: e2 } = await supabase.from('realisations').update({ title: realForm.title, date: realForm.date, location: realForm.location, description: realForm.description, image: realForm.image, subtitle: realForm.subtitle }).eq('id', editingReal.id)
+        if (e2) throw e2
       }
-      await Promise.all(saves)
       await fetchReals()
+      alert('Modifications enregistrées !')
     } catch (err) {
       const msg = err instanceof Error ? err.message : (typeof err === 'object' && err !== null && 'message' in err) ? String((err as { message: unknown }).message) : JSON.stringify(err)
       alert(`Erreur lors de la sauvegarde : ${msg}`)
