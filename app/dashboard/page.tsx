@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {
   Pencil, Trash2, Plus, ChevronLeft, Eye, EyeOff,
-  X, LogOut, GlassWater, CalendarDays, FileText,
+  X, LogOut, GlassWater, CalendarDays,
   ChevronDown, ChevronUp, Upload,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
@@ -350,11 +350,6 @@ export default function DashboardPage() {
   // ── Réalisation CRUD ──────────────────────────────────────────────────────────────────────
 
   function openAddReal() { setEditingReal(null); setRealForm(EMPTY_REAL); setRealModal(true) }
-  function openEditReal(item: RealisationItem) {
-    setEditingReal(item)
-    setRealForm({ title: item.title, date: item.date, location: item.location, description: item.description, image: item.image, path: item.path, subtitle: item.subtitle ?? '' })
-    setRealModal(true)
-  }
   function closeRealModal() { setRealModal(false); setEditingReal(null); setRealForm(EMPTY_REAL) }
 
   async function saveReal(e: React.FormEvent) {
@@ -470,11 +465,11 @@ export default function DashboardPage() {
     setContentSaving(true)
     try {
       const saves: Promise<unknown>[] = [
-        supabase.from('evenements').update({ content: contentData }).eq('slug', contentEditorSlug).then(({ error }) => { if (error) throw error }),
+        Promise.resolve(supabase.from('evenements').update({ content: contentData }).eq('slug', contentEditorSlug)).then(({ error }) => { if (error) throw error }),
       ]
       if (editingReal) {
         saves.push(
-          supabase.from('realisations').update({ title: realForm.title, date: realForm.date, location: realForm.location, description: realForm.description, image: realForm.image, subtitle: realForm.subtitle }).eq('id', editingReal.id).then(({ error }) => { if (error) throw error })
+          Promise.resolve(supabase.from('realisations').update({ title: realForm.title, date: realForm.date, location: realForm.location, description: realForm.description, image: realForm.image, subtitle: realForm.subtitle }).eq('id', editingReal.id)).then(({ error }) => { if (error) throw error })
         )
       }
       await Promise.all(saves)
@@ -1030,7 +1025,6 @@ export default function DashboardPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {reals.map((item) => {
-                const hasPage = !!slugFromPath(item.path)
                 return (
                   <div key={item.id} className="group bg-[#0D1612] border border-white/8 rounded-2xl overflow-hidden hover:border-[#C9A96E]/25 transition-all duration-300 hover:shadow-xl hover:shadow-[#C9A96E]/5 hover:-translate-y-0.5">
                     <div className="relative h-44 overflow-hidden">
