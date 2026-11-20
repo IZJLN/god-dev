@@ -44,7 +44,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
       <main>
 
         {/* ── HERO ── */}
-        <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-black">
+        <section className="relative min-h-screen flex flex-col overflow-hidden bg-black">
           <div className="absolute inset-0">
             <Image
               src={hero.image}
@@ -75,7 +75,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
             </Link>
           </div>
           {/* Content */}
-          <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+          <div className="relative z-10 text-center px-6 max-w-4xl mx-auto w-full flex-1 flex flex-col justify-center items-center pt-24 pb-16">
             <p
               className="text-xs tracking-[0.4em] uppercase text-[#C9A96E] mb-6 opacity-80"
               style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
