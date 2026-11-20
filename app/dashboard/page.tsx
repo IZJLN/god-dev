@@ -47,6 +47,22 @@ function slugFromPath(path: string): string | null {
   return parts[parts.length - 1] || null
 }
 
+function slugFromTitle(title: string): string {
+  return title
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+}
+
+const DEFAULT_EVENT_CONTENT = {
+  hero: { image: '', title: '', titleAccent: '', date: '', location: '', guests: '', description: '' },
+  story: { eyebrow: '', title: '', paragraphs: [''], image: '', stats: [{ value: '', label: '' }, { value: '', label: '' }, { value: '', label: '' }] },
+  cocktails: [],
+  gallery: [],
+}
+
 // ── Helpers ─────────────────────────────────────────────────────────────────────────────────
 
 function Divider() {
@@ -330,13 +346,47 @@ export default function DashboardPage() {
           .eq('id', editingReal.id)
         if (error) throw error
       } else {
+        const slug = slugFromTitle(realForm.title)
+        const path = `/evenement/${slug}`
+        const formWithPath = { ...realForm, path }
+
         const { error } = await supabase
           .from('realisations')
-          .insert(realForm)
+          .insert(formWithPath)
         if (error) throw error
+
+        // Crée automatiquement l'entrée dans evenements si elle n'existe pas
+        const { data: existing } = await supabase
+          .from('evenements')
+          .select('slug')
+          .eq('slug', slug)
+          .single()
+
+        if (!existing) {
+          await supabase.from('evenements').insert({
+            slug,
+            content: {
+              ...DEFAULT_EVENT_CONTENT,
+              hero: {
+                ...DEFAULT_EVENT_CONTENT.hero,
+                title: realForm.title,
+                date: realForm.date,
+                location: realForm.location,
+                image: realForm.image,
+                description: realForm.description,
+              },
+              story: {
+                ...DEFAULT_EVENT_CONTENT.story,
+                title: realForm.title,
+              },
+            },
+          })
+        }
       }
       await fetchReals(); closeRealModal()
-    } catch { console.error('Failed to save realisation') } finally { setSaving(false) }
+    } catch (err) {
+      console.error('Failed to save realisation', err)
+    } finally { setSaving(false) }
   }
 
   async function deleteReal(item: RealisationItem) {
@@ -1034,11 +1084,15 @@ export default function DashboardPage() {
                 <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Description *</label>
                 <textarea value={realForm.description} onChange={e => setRealForm(f => ({ ...f, description: e.target.value }))} required rows={3} placeholder="Un moment unique pour..." className="w-full bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors resize-none" />
               </div>
-              <div>
-                <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Lien vers la page détail <span className="normal-case text-white/20">(optionnel)</span></label>
-                <input type="text" value={realForm.path} onChange={e => setRealForm(f => ({ ...f, path: e.target.value }))} placeholder="/evenement/mariage-sophie-thomas" className="w-full bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors font-mono" />
-                <p className="text-white/20 text-xs mt-1.5">Laisser vide si aucune page dédiée n&apos;existe.</p>
-              </div>
+              {editingReal && realForm.path && (
+                <div>
+                  <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Lien vers la page</label>
+                  <div className="w-full bg-[#080E0C] border border-white/5 rounded-xl px-4 py-2.5 text-white/40 text-sm font-mono">{realForm.path}</div>
+                </div>
+              )}
+              {!editingReal && (
+                <p className="text-white/25 text-xs">La page dédiée sera créée automatiquement à partir du titre.</p>
+              )}
               <div className="flex gap-3 pt-1">
                 <button type="button" onClick={closeRealModal} className="flex-1 py-3 rounded-xl border border-white/10 text-white/50 hover:text-white hover:border-white/20 transition-all duration-200 text-sm font-medium">Annuler</button>
                 <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-[#C9A96E] hover:bg-[#b8935a] text-[#080E0C] font-semibold transition-all duration-200 text-sm disabled:opacity-60 flex items-center justify-center gap-2 shadow-lg shadow-[#C9A96E]/20">

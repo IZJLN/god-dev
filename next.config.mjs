@@ -25,6 +25,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.niococktails.fr",
       },
+      {
+        protocol: "https",
+        hostname: "hyxiiqqmathtjcaprxac.supabase.co",
+      },
     ],
   },
 };
