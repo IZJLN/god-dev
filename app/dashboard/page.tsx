@@ -649,8 +649,8 @@ export default function DashboardPage() {
           {/* ── HERO ── */}
           <AccordionSection id="hero" label="🖼️  Héro — Image & titres" open={openAccordions.has('hero')} onToggle={() => toggleAccordion('hero')}>
             <div>
-              <FieldLabel>Image de fond (URL)</FieldLabel>
-              <TextInput value={contentData.hero.image} onChange={v => setHero({ image: v })} placeholder="https://images.unsplash.com/..." />
+              <FieldLabel>Image de fond</FieldLabel>
+              <ImageUploadField value={contentData.hero.image} onChange={v => setHero({ image: v })} />
               {contentData.hero.image && (
                 <div className="relative h-28 mt-3 rounded-xl overflow-hidden border border-white/8">
                   <Image src={contentData.hero.image} alt="Aperçu" fill className="object-cover" unoptimized />
@@ -706,8 +706,8 @@ export default function DashboardPage() {
               </div>
             ))}
             <div>
-              <FieldLabel>Image principale (URL)</FieldLabel>
-              <TextInput value={contentData.story.image} onChange={v => setStory({ image: v })} placeholder="https://..." />
+              <FieldLabel>Image principale</FieldLabel>
+              <ImageUploadField value={contentData.story.image} onChange={v => setStory({ image: v })} />
               {contentData.story.image && (
                 <div className="relative h-24 mt-3 rounded-xl overflow-hidden border border-white/8">
                   <Image src={contentData.story.image} alt="Aperçu" fill className="object-cover" unoptimized />
@@ -746,8 +746,8 @@ export default function DashboardPage() {
                       <TextInput value={c.name} onChange={v => setEventCocktail(i, { name: v })} placeholder="Méditerranée" />
                     </div>
                     <div>
-                      <FieldLabel>Image (URL)</FieldLabel>
-                      <TextInput value={c.image} onChange={v => setEventCocktail(i, { image: v })} placeholder="https://..." />
+                      <FieldLabel>Image</FieldLabel>
+                      <ImageUploadField value={c.image} onChange={v => setEventCocktail(i, { image: v })} />
                     </div>
                   </div>
                   {c.image && (
