@@ -57,14 +57,15 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
           </div>
           {/* Decorative lines */}
-          <div className="absolute top-1/3 left-0 right-0 pointer-events-none">
-            <div className="h-px bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent" />
+          <div className="absolute top-1/2 left-0 right-0 pointer-events-none -translate-y-32">
+            <div className="h-px bg-gradient-to-r from-transparent via-[#C9A96E]/30 to-transparent" />
           </div>
-          <div className="absolute bottom-1/3 left-0 right-0 pointer-events-none">
-            <div className="h-px bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent" />
+          <div className="absolute top-1/2 left-0 right-0 pointer-events-none translate-y-32">
+            <div className="h-px bg-gradient-to-r from-transparent via-[#C9A96E]/30 to-transparent" />
           </div>
-          {/* Back link */}
-          <div className="absolute top-28 left-6 md:left-10 z-20">
+
+          {/* Zone sous la navbar : lien retour */}
+          <div className="relative z-20 flex items-center px-6 md:px-10" style={{ paddingTop: '6.5rem' }}>
             <Link
               href="/#realisation"
               className="inline-flex items-center gap-2 text-[#C9A96E] text-sm tracking-widest uppercase hover:text-white transition-colors duration-300"
@@ -74,8 +75,9 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
               Nos Réalisations
             </Link>
           </div>
-          {/* Content */}
-          <div className="relative z-10 text-center px-6 max-w-4xl mx-auto w-full flex-1 flex flex-col justify-center items-center pt-24 pb-16">
+
+          {/* Content centré dans l'espace restant */}
+          <div className="relative z-10 text-center px-6 max-w-4xl mx-auto w-full flex-1 flex flex-col justify-center items-center py-16">
             <p
               className="text-xs tracking-[0.4em] uppercase text-[#C9A96E] mb-6 opacity-80"
               style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
