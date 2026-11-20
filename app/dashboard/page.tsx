@@ -120,10 +120,33 @@ function TextArea({ value, onChange, placeholder, rows = 3 }: { value: string; o
   )
 }
 
+async function compressImage(file: File, maxWidth = 1800, quality = 0.82): Promise<File> {
+  return new Promise((resolve) => {
+    const img = new window.Image()
+    const url = URL.createObjectURL(file)
+    img.onload = () => {
+      URL.revokeObjectURL(url)
+      const scale = Math.min(1, maxWidth / img.width)
+      const canvas = document.createElement('canvas')
+      canvas.width = Math.round(img.width * scale)
+      canvas.height = Math.round(img.height * scale)
+      const ctx = canvas.getContext('2d')!
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+      canvas.toBlob(
+        (blob) => resolve(blob ? new File([blob], file.name, { type: 'image/jpeg' }) : file),
+        'image/jpeg',
+        quality,
+      )
+    }
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(file) }
+    img.src = url
+  })
+}
+
 async function uploadImage(file: File): Promise<string> {
-  const ext = file.name.split('.').pop() ?? 'jpg'
-  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-  const { error } = await supabase.storage.from('images').upload(fileName, file, { upsert: false })
+  const compressed = await compressImage(file)
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`
+  const { error } = await supabase.storage.from('images').upload(fileName, compressed, { upsert: false, contentType: 'image/jpeg' })
   if (error) throw error
   const { data } = supabase.storage.from('images').getPublicUrl(fileName)
   return data.publicUrl
