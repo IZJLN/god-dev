@@ -474,7 +474,10 @@ export default function DashboardPage() {
       }
       await Promise.all(saves)
       await fetchReals()
-    } catch { alert('Erreur lors de la sauvegarde.') } finally { setContentSaving(false) }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : (typeof err === 'object' && err !== null && 'message' in err) ? String((err as { message: unknown }).message) : JSON.stringify(err)
+      alert(`Erreur lors de la sauvegarde : ${msg}`)
+    } finally { setContentSaving(false) }
   }
 
   function toggleAccordion(id: string) {
