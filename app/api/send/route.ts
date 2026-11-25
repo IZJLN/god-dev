@@ -84,7 +84,7 @@ export async function POST(req: Request) {
 
     await transporter.sendMail({
       from: `"Good Old Drinks" <${process.env.EMAIL_USER}>`,
-      to: "upizweb@gmail.com",
+      to: "goodolddrinks@gmail.com",
       replyTo: email,
       subject: `Nouvelle demande — ${eventType || "Contact"} — ${name}`,
       html,
