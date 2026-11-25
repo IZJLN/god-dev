@@ -8,7 +8,8 @@ async function getAllRealisations() {
   const { data } = await supabase
     .from("realisations")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(6);
   return data ?? [];
 }
 

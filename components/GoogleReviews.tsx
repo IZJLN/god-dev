@@ -76,7 +76,7 @@ export default async function GoogleReviews() {
 
         <SectionTitle
           eyebrow="Témoignages"
-          title="Ce que disent nos clients"
+          title="Vos retours"
           className="mb-16"
         />
 

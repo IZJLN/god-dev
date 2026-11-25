@@ -15,10 +15,11 @@ export default function SectionTitle({
   className = "",
 }: SectionTitleProps) {
   return (
-    <div className={`${className}`}>
+    <div className={`text-center ${className}`}>
 
-      {/* Tag pattern @goodolddrinks */}
-      <div className="god-tag">
+      {/* Tag pattern symétrique */}
+      <div className="flex items-center justify-center gap-4 mb-8">
+        <span className="god-tag__line" />
         <span className="god-tag__text">@ g o o d o l d d r i n k s</span>
         <span className="god-tag__line" />
       </div>
@@ -44,7 +45,7 @@ export default function SectionTitle({
       {/* Subtitle */}
       {subtitle && (
         <p
-          className="mt-6 max-w-2xl text-sm md:text-base font-light leading-relaxed text-white/70"
+          className="mt-6 mx-auto max-w-2xl text-sm md:text-base font-light leading-relaxed text-white/70"
           style={{ fontFamily: "var(--font-lato), sans-serif" }}
         >
           {subtitle}
