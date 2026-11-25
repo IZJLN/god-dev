@@ -1,14 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Mail, Phone, Clock } from "lucide-react";
 import SectionTitle from "./ui/SectionTitle";
 
 export default function Contact() {
+  useEffect(() => {
+    console.log("Contact: hydraté OK");
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     eventType: "Soirée d'entreprise",
+    guests: "",
+    date: "",
+    duration: "3h",
     location: "",
+    bar: "Sans préférence",
     message: "",
   });
 
@@ -23,8 +31,8 @@ export default function Contact() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
+    if (e) e.preventDefault();
     setStatus("Envoi en cours...");
 
     try {
@@ -42,11 +50,16 @@ export default function Contact() {
           name: "",
           email: "",
           eventType: "Soirée d'entreprise",
+          guests: "",
+          date: "",
+          duration: "3h",
           location: "",
+          bar: "Sans préférence",
           message: "",
         });
       } else {
-        setStatus("Une erreur est survenue. Veuillez réessayer.");
+        const data = await response.json();
+        setStatus(data.error || "Une erreur est survenue. Veuillez réessayer.");
       }
     } catch (error) {
       console.error("Erreur d'envoi:", error);
@@ -130,33 +143,95 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div>
-                <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Type d&apos;événement</label>
-                <select
-                  onChange={handleChange}
-                  value={formData.eventType}
-                  name="eventType"
-                  className={inputClass}
-                  style={{ fontFamily: "var(--font-lato), sans-serif" }}
-                >
-                  <option>Soirée d&apos;entreprise</option>
-                  <option>Soirée privée</option>
-                  <option>Mariage</option>
-                  <option>Autre...</option>
-                </select>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Type d&apos;événement</label>
+                  <select
+                    onChange={handleChange}
+                    value={formData.eventType}
+                    name="eventType"
+                    className={inputClass}
+                    style={{ fontFamily: "var(--font-lato), sans-serif" }}
+                  >
+                    <option>Soirée d&apos;entreprise</option>
+                    <option>Soirée privée</option>
+                    <option>Mariage</option>
+                    <option>Autre...</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Nombre d&apos;invités</label>
+                  <input
+                    onChange={handleChange}
+                    value={formData.guests}
+                    name="guests"
+                    type="text"
+                    className={inputClass}
+                    placeholder="Ex: 50"
+                    style={{ fontFamily: "var(--font-lato), sans-serif" }}
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Lieu de l&apos;événement</label>
-                <input
-                  onChange={handleChange}
-                  value={formData.location}
-                  name="location"
-                  type="text"
-                  className={inputClass}
-                  placeholder="Ville ou adresse"
-                  style={{ fontFamily: "var(--font-lato), sans-serif" }}
-                />
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Date de l&apos;événement</label>
+                  <input
+                    onChange={handleChange}
+                    value={formData.date}
+                    name="date"
+                    type="date"
+                    className={`${inputClass} [color-scheme:dark]`}
+                    style={{ fontFamily: "var(--font-lato), sans-serif" }}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Durée de la prestation</label>
+                  <select
+                    onChange={handleChange}
+                    value={formData.duration}
+                    name="duration"
+                    className={inputClass}
+                    style={{ fontFamily: "var(--font-lato), sans-serif" }}
+                  >
+                    <option>2h</option>
+                    <option>3h</option>
+                    <option>4h</option>
+                    <option>5h</option>
+                    <option>6h+</option>
+                    <option>À définir</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Lieu de l&apos;événement</label>
+                  <input
+                    onChange={handleChange}
+                    value={formData.location}
+                    name="location"
+                    type="text"
+                    className={inputClass}
+                    placeholder="Ville ou adresse"
+                    style={{ fontFamily: "var(--font-lato), sans-serif" }}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Choix du bar</label>
+                  <select
+                    onChange={handleChange}
+                    value={formData.bar}
+                    name="bar"
+                    className={inputClass}
+                    style={{ fontFamily: "var(--font-lato), sans-serif" }}
+                  >
+                    <option>Sans préférence</option>
+                    <option>Le Distingué</option>
+                    <option>Le Speakeasy</option>
+                    <option>Le Jungle</option>
+                  </select>
+                </div>
               </div>
 
               <div>
@@ -173,7 +248,8 @@ export default function Contact() {
               </div>
 
               <button
-                type="submit"
+                type="button"
+                onClick={() => handleSubmit()}
                 className="w-full py-3.5 border border-white text-white text-[0.65rem] tracking-[0.3em] uppercase hover:bg-white hover:text-black transition-all duration-300"
                 style={{ fontFamily: "var(--font-lato), sans-serif" }}
               >

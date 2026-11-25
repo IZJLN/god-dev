@@ -5,7 +5,11 @@ interface EmailTemplateProps {
   name: string;
   email: string;
   eventType: string;
+  guests?: string;
+  date?: string;
+  duration?: string;
   location: string;
+  bar?: string;
   message: string;
 }
 
@@ -13,7 +17,11 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   name,
   email,
   eventType,
+  guests,
+  date,
+  duration,
   location,
+  bar,
   message,
 }) => (
   <html>
@@ -52,9 +60,29 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             <p>
               <strong>Type d&apos;événement :</strong> {eventType}
             </p>
+            {guests && (
+              <p>
+                <strong>Nombre d&apos;invités :</strong> {guests}
+              </p>
+            )}
+            {date && (
+              <p>
+                <strong>Date :</strong> {date}
+              </p>
+            )}
+            {duration && (
+              <p>
+                <strong>Durée de la prestation :</strong> {duration}
+              </p>
+            )}
             <p>
               <strong>Lieu de l&apos;événement :</strong> {location}
             </p>
+            {bar && bar !== "Sans préférence" && (
+              <p>
+                <strong>Choix du bar :</strong> {bar}
+              </p>
+            )}
             <p>
               <strong>Message :</strong>
             </p>

@@ -1,4 +1,6 @@
+import { unstable_noStore as noStore } from "next/cache";
 import Image from "next/image";
+import { supabase } from "@/lib/supabase";
 import img1 from "../assets/MansoryPhoto/1.jpg";
 import img2 from "../assets/MansoryPhoto/2.jpg";
 import img3 from "../assets/MansoryPhoto/3.jpg";
@@ -11,55 +13,101 @@ import img9 from "../assets/MansoryPhoto/9.jpg";
 import img10 from "../assets/MansoryPhoto/10.jpg";
 import img11 from "../assets/MansoryPhoto/11.jpg";
 import img12 from "../assets/MansoryPhoto/12.jpg";
+import { StaticImageData } from "next/image";
 
-export default function Gallery() {
+const FALLBACK: StaticImageData[] = [
+  img1, img2, img3, img4, img5, img6,
+  img7, img8, img9, img10, img11, img12,
+];
+
+async function getGalleryUrls(): Promise<string[]> {
+  const urls: string[] = [];
+
+  const [{ data: reals }, { data: events }] = await Promise.all([
+    supabase.from("realisations").select("image, path").order("id", { ascending: false }),
+    supabase.from("evenements").select("slug, content"),
+  ]);
+
+  const eventMap = new Map<string, { gallery?: { src: string }[] }>(
+    (events ?? []).map((e) => [e.slug, e.content])
+  );
+
+  for (const real of reals ?? []) {
+    // Photos de la galerie de l'événement (priorité)
+    const slugMatch = real.path?.match(/\/evenement\/(.+)$/);
+    if (slugMatch) {
+      const content = eventMap.get(slugMatch[1]);
+      for (const item of content?.gallery ?? []) {
+        if (item.src && !urls.includes(item.src)) {
+          urls.push(item.src);
+        }
+      }
+    }
+    // Photo principale de la réalisation
+    if (real.image && !urls.includes(real.image)) {
+      urls.push(real.image);
+    }
+  }
+
+  return urls;
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+export default async function Gallery() {
+  noStore();
+
+  const dynamicUrls = await getGalleryUrls();
+
+  // Construire la liste brute, mélanger, puis prendre 12
+  const all: Array<{ src: string | StaticImageData; dynamic: boolean }> = [
+    ...dynamicUrls.map((src) => ({ src, dynamic: true })),
+    ...FALLBACK.map((src) => ({ src, dynamic: false })),
+  ];
+
+  const photos = shuffle(all).slice(0, 12);
+
+  const cols = [
+    photos.slice(0, 3),
+    photos.slice(3, 6),
+    photos.slice(6, 9),
+    photos.slice(9, 12),
+  ];
+
   return (
     <section className="bg-black py-4 px-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-1 container mx-auto">
-        <div className="grid gap-1">
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img1} alt="1" width={500} height={500} />
+        {cols.map((col, ci) => (
+          <div key={ci} className="grid gap-1">
+            {col.map((photo, pi) => (
+              <div key={pi} className="relative aspect-square overflow-hidden">
+                {photo.dynamic ? (
+                  <Image
+                    className="object-cover hover:scale-105 transition-transform duration-700"
+                    src={photo.src as string}
+                    alt={`Galerie ${ci * 3 + pi + 1}`}
+                    fill
+                    unoptimized
+                  />
+                ) : (
+                  <Image
+                    className="object-cover hover:scale-105 transition-transform duration-700"
+                    src={photo.src as StaticImageData}
+                    alt={`Galerie ${ci * 3 + pi + 1}`}
+                    fill
+                  />
+                )}
+              </div>
+            ))}
           </div>
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img2} alt="2" width={500} height={500} />
-          </div>
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img3} alt="3" width={500} height={500} />
-          </div>
-        </div>
-        <div className="grid gap-1">
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img4} alt="4" width={500} height={500} />
-          </div>
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img5} alt="5" width={500} height={500} />
-          </div>
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img6} alt="6" width={500} height={500} />
-          </div>
-        </div>
-        <div className="grid gap-1">
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img7} alt="7" width={500} height={500} />
-          </div>
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img8} alt="8" width={500} height={500} />
-          </div>
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img9} alt="9" width={500} height={500} />
-          </div>
-        </div>
-        <div className="grid gap-1">
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img10} alt="10" width={500} height={500} />
-          </div>
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img11} alt="11" width={500} height={500} />
-          </div>
-          <div className="overflow-hidden">
-            <Image className="w-full object-cover hover:scale-105 transition-transform duration-700" src={img12} alt="12" width={500} height={500} />
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

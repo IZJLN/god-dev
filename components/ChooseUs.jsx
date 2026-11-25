@@ -27,7 +27,7 @@ const ChooseUs = () => {
           className="mb-16"
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/5 max-w-4xl">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/5 max-w-4xl mx-auto">
           {reasons.map((item, i) => (
             <div
               key={i}
@@ -51,7 +51,7 @@ const ChooseUs = () => {
         </div>
 
         <p
-          className="mt-14 text-sm leading-relaxed text-white/65 max-w-2xl"
+          className="mt-14 text-sm leading-relaxed text-white/65 max-w-2xl mx-auto text-center"
           style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
         >
           Chez Good Old Drinks, chaque détail est pensé pour vous offrir une expérience unique.

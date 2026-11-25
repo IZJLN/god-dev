@@ -39,7 +39,7 @@ export default function LogoCarousel() {
 
       <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
         <div
-          className="flex"
+          className="flex justify-center"
           style={
             setWidth > 0
               ? { animation: `partners-scroll 25s linear infinite` }
@@ -61,16 +61,23 @@ export default function LogoCarousel() {
             ))}
           </ul>
 
-          {/* Copie identique pour le loop continu */}
+          {/* Copie 2 */}
           <ul className="flex items-center shrink-0" aria-hidden>
             {logos.map((logo, i) => (
               <li key={i} className="mx-12">
-                <Image
-                  src={logo.src}
-                  alt=""
-                  width={160}
-                  height={40}
-                  className="object-contain h-10 w-auto opacity-65 hover:opacity-95 transition-opacity duration-300 brightness-0 invert"
+                <Image src={logo.src} alt="" width={160} height={40}
+                  className="object-contain h-10 w-auto opacity-65 brightness-0 invert"
+                />
+              </li>
+            ))}
+          </ul>
+
+          {/* Copie 3 — assure que le défilement couvre toute la largeur */}
+          <ul className="flex items-center shrink-0" aria-hidden>
+            {logos.map((logo, i) => (
+              <li key={i} className="mx-12">
+                <Image src={logo.src} alt="" width={160} height={40}
+                  className="object-contain h-10 w-auto opacity-65 brightness-0 invert"
                 />
               </li>
             ))}
