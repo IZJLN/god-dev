@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(req: Request) {
   try {
-    const { name, email, eventType, guests, date, duration, location, bar, message } = await req.json();
+    const { name, email, eventType, guests, date, duration, location, message } = await req.json();
 
     if (!name || !email || !message) {
       return Response.json(
@@ -69,7 +69,6 @@ export async function POST(req: Request) {
         <tr><td>Date</td><td>${date || "—"}</td></tr>
         <tr><td>Durée</td><td>${duration || "—"}</td></tr>
         <tr><td>Lieu</td><td>${location || "—"}</td></tr>
-        <tr><td>Choix du bar</td><td>${bar || "—"}</td></tr>
       </table>
 
       <p class="section-title">Message</p>
