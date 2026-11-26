@@ -52,17 +52,17 @@ export default async function Services() {
         )}
 
         {/* Accroche événements */}
-        <div className="mt-14 border-t border-white/8 pt-10">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-5">
+        <div className="mt-14 border-t border-white/8 pt-10 text-center">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mb-5">
             {EVENT_TYPES.map((type, i) => (
               <React.Fragment key={type}>
                 {i > 0 && (
-                  <span className="text-[#C9A96E]/30 text-xs" aria-hidden>
+                  <span className="text-[#C9A96E]/30 text-sm" aria-hidden>
                     —
                   </span>
                 )}
                 <span
-                  className="text-[0.6rem] tracking-[0.22em] uppercase text-white/50"
+                  className="text-xs tracking-[0.22em] uppercase text-white/50"
                   style={{ fontFamily: "var(--font-lato), sans-serif" }}
                 >
                   {type}
@@ -71,7 +71,7 @@ export default async function Services() {
             ))}
           </div>
           <p
-            className="text-sm leading-relaxed text-white/45 max-w-xl"
+            className="text-base leading-relaxed text-white/45 max-w-xl mx-auto"
             style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
           >
             Chaque prestation est pensée sur-mesure. Un devis personnalisé vous
