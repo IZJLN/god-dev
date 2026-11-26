@@ -36,7 +36,7 @@ const CocktailCarousel: React.FC<Props> = ({ items }) => {
   const prevSlide = () => handleTransition((currentIndex - 1 + items.length) % items.length);
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto h-[500px] overflow-hidden">
+    <div className="relative w-full max-w-3xl mx-auto h-[500px] overflow-hidden bg-[#0D0E0C]">
 
       {/* Fading group — images + text */}
       <div
@@ -44,15 +44,17 @@ const CocktailCarousel: React.FC<Props> = ({ items }) => {
           isTransitioning ? "opacity-0" : "opacity-100"
         }`}
       >
-        {/* Blurred background */}
+        {/* Blurred background — remplit le cadre avec les couleurs de l'illustration */}
         <Image
           src={items[currentIndex].image}
           alt=""
           fill
-          className="object-cover scale-110 blur-2xl opacity-40"
+          className="object-cover scale-110 blur-2xl opacity-60"
           unoptimized
           aria-hidden
         />
+        {/* Vignette — estompe les bords pour effacer le rectangle sur les PNG sans fond */}
+        <div className="absolute inset-0 shadow-[inset_0_0_90px_50px_#0D0E0C] z-10 pointer-events-none" />
         {/* Main image */}
         <Image
           src={items[currentIndex].image}
