@@ -16,7 +16,6 @@ export default function Contact() {
     date: "",
     duration: "3h",
     location: "",
-    bar: "Sans préférence",
     message: "",
   });
 
@@ -54,7 +53,6 @@ export default function Contact() {
           date: "",
           duration: "3h",
           location: "",
-          bar: "Sans préférence",
           message: "",
         });
       } else {
@@ -204,34 +202,17 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Lieu de l&apos;événement</label>
-                  <input
-                    onChange={handleChange}
-                    value={formData.location}
-                    name="location"
-                    type="text"
-                    className={inputClass}
-                    placeholder="Ville ou adresse"
-                    style={{ fontFamily: "var(--font-lato), sans-serif" }}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Choix du bar</label>
-                  <select
-                    onChange={handleChange}
-                    value={formData.bar}
-                    name="bar"
-                    className={inputClass}
-                    style={{ fontFamily: "var(--font-lato), sans-serif" }}
-                  >
-                    <option>Sans préférence</option>
-                    <option>Le Distingué</option>
-                    <option>Le Speakeasy</option>
-                    <option>Le Jungle</option>
-                  </select>
-                </div>
+              <div>
+                <label className={labelClass} style={{ fontFamily: "var(--font-lato), sans-serif" }}>Lieu de l&apos;événement</label>
+                <input
+                  onChange={handleChange}
+                  value={formData.location}
+                  name="location"
+                  type="text"
+                  className={inputClass}
+                  placeholder="Ville ou adresse"
+                  style={{ fontFamily: "var(--font-lato), sans-serif" }}
+                />
               </div>
 
               <div>

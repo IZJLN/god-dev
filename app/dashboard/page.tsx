@@ -5,19 +5,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {
   Pencil, Trash2, Plus, ChevronLeft, Eye, EyeOff,
-  X, LogOut, GlassWater, CalendarDays,
+  X, LogOut, GlassWater, CalendarDays, Handshake,
   ChevronDown, ChevronUp, Upload,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
 // ── Types ───────────────────────────────────────────────────────────────────────────────────
 
-type MainSection = 'cocktails' | 'realisations'
+type MainSection = 'cocktails' | 'realisations' | 'partenaires'
 type CocktailCategory = 'cocktails' | 'mocktails' | 'classiques'
 
 interface CocktailItem { id: number; name: string; image: string; description: string; year: string }
 interface RealisationItem { id: number; title: string; date: string; location: string; description: string; image: string; path: string; subtitle?: string }
 interface CocktailData { cocktails: CocktailItem[]; mocktails: CocktailItem[]; classiques: CocktailItem[] }
+interface PartenaireItem { id: number; name: string; logo: string; description: string; website: string }
 
 interface EventCocktail { name: string; image: string; description: string; ingredients: string[] }
 interface EventGalleryItem { src: string; alt: string }
@@ -38,6 +39,7 @@ const COCKTAIL_TABS: { key: CocktailCategory; label: string }[] = [
 ]
 const EMPTY_COCKTAIL = { name: '', image: '', description: '', year: '' }
 const EMPTY_REAL = { title: '', date: '', location: '', description: '', image: '', path: '', subtitle: '' }
+const EMPTY_PARTENAIRE = { name: '', logo: '', description: '', website: '' }
 const EMPTY_EVENT_COCKTAIL: EventCocktail = { name: '', image: '', description: '', ingredients: [] }
 const EMPTY_GALLERY: EventGalleryItem = { src: '', alt: '' }
 
@@ -215,6 +217,12 @@ export default function DashboardPage() {
   const [editingCocktail, setEditingCocktail] = useState<CocktailItem | null>(null)
   const [cocktailForm, setCocktailForm] = useState(EMPTY_COCKTAIL)
 
+  // Partenaire state
+  const [partenaires, setPartenaires] = useState<PartenaireItem[]>([])
+  const [partenaireModal, setPartenaireModal] = useState(false)
+  const [editingPartenaire, setEditingPartenaire] = useState<PartenaireItem | null>(null)
+  const [partenaireForm, setPartenaireForm] = useState(EMPTY_PARTENAIRE)
+
   // Réalisation state
   const [reals, setReals] = useState<RealisationItem[]>([])
   const [realModal, setRealModal] = useState(false)
@@ -297,11 +305,22 @@ export default function DashboardPage() {
     } catch { console.error('Failed to fetch realisations') }
   }, [])
 
+  const fetchPartenaires = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from('partenaires')
+        .select('*')
+        .order('created_at', { ascending: true })
+      if (error) throw error
+      setPartenaires(data ?? [])
+    } catch { console.error('Failed to fetch partenaires') }
+  }, [])
+
   useEffect(() => {
     if (!authenticated) return
     setLoading(true)
-    Promise.all([fetchCocktails(), fetchReals()]).finally(() => setLoading(false))
-  }, [authenticated, fetchCocktails, fetchReals])
+    Promise.all([fetchCocktails(), fetchReals(), fetchPartenaires()]).finally(() => setLoading(false))
+  }, [authenticated, fetchCocktails, fetchReals, fetchPartenaires])
 
   // ── Cocktail CRUD ─────────────────────────────────────────────────────────────────────────
 
@@ -345,6 +364,50 @@ export default function DashboardPage() {
       if (error) throw error
       await fetchCocktails()
     } catch { console.error('Failed to delete cocktail') } finally { setDeleteId(null) }
+  }
+
+  // ── Partenaire CRUD ──────────────────────────────────────────────────────────────────────
+
+  function openAddPartenaire() { setEditingPartenaire(null); setPartenaireForm(EMPTY_PARTENAIRE); setPartenaireModal(true) }
+  function openEditPartenaire(item: PartenaireItem) {
+    setEditingPartenaire(item)
+    setPartenaireForm({ name: item.name, logo: item.logo, description: item.description, website: item.website })
+    setPartenaireModal(true)
+  }
+  function closePartenaireModal() { setPartenaireModal(false); setEditingPartenaire(null); setPartenaireForm(EMPTY_PARTENAIRE) }
+
+  async function savePartenaire(e: React.FormEvent) {
+    e.preventDefault()
+    if (!partenaireForm.logo) { alert('Veuillez ajouter un logo.'); return }
+    setSaving(true)
+    try {
+      if (editingPartenaire) {
+        const { error } = await supabase
+          .from('partenaires')
+          .update(partenaireForm)
+          .eq('id', editingPartenaire.id)
+        if (error) throw error
+      } else {
+        const { error } = await supabase
+          .from('partenaires')
+          .insert(partenaireForm)
+        if (error) throw error
+      }
+      await fetchPartenaires(); closePartenaireModal()
+    } catch { console.error('Failed to save partenaire') } finally { setSaving(false) }
+  }
+
+  async function deletePartenaire(item: PartenaireItem) {
+    if (!window.confirm(`Supprimer « ${item.name} » ? Cette action est irréversible.`)) return
+    setDeleteId(item.id)
+    try {
+      const { error } = await supabase
+        .from('partenaires')
+        .delete()
+        .eq('id', item.id)
+      if (error) throw error
+      await fetchPartenaires()
+    } catch { console.error('Failed to delete partenaire') } finally { setDeleteId(null) }
   }
 
   // ── Réalisation CRUD ──────────────────────────────────────────────────────────────────────
@@ -860,6 +923,7 @@ export default function DashboardPage() {
           {([
             { key: 'cocktails' as MainSection, label: 'Cocktails', icon: GlassWater },
             { key: 'realisations' as MainSection, label: 'Réalisations', icon: CalendarDays },
+            { key: 'partenaires' as MainSection, label: 'Partenaires', icon: Handshake },
           ]).map(({ key, label, icon: Icon }) => (
             <button
               key={key}
@@ -998,6 +1062,69 @@ export default function DashboardPage() {
             </div>
           </>
 
+        ) : section === 'partenaires' ? (
+
+          /* ══════════════ PARTENAIRES SECTION ══════════════ */
+          <>
+            <div className="mb-10 flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <h1 className="text-4xl font-serif font-light tracking-wide">
+                  Nos <span className="text-[#C9A96E]">Partenaires</span>
+                </h1>
+                <p className="text-white/40 mt-2 text-sm">Gérez les partenaires affichés sur la page <a href="/partenaires" target="_blank" className="text-[#C9A96E]/60 hover:text-[#C9A96E] underline underline-offset-2 transition-colors">/partenaires</a>.</p>
+              </div>
+              <button
+                onClick={openAddPartenaire}
+                className="flex items-center gap-2 bg-[#C9A96E] hover:bg-[#b8935a] text-[#080E0C] font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 text-sm shadow-lg shadow-[#C9A96E]/20 self-center"
+              >
+                <Plus size={16} />Ajouter un partenaire
+              </button>
+            </div>
+
+            <div className="inline-flex items-center gap-4 rounded-xl border border-[#C9A96E]/20 bg-[#C9A96E]/5 px-6 py-4 mb-10">
+              <p className="text-4xl font-serif font-light text-[#C9A96E]">{partenaires.length}</p>
+              <p className="text-xs uppercase tracking-widest text-[#C9A96E]/70">Partenaire{partenaires.length > 1 ? 's' : ''} publié{partenaires.length > 1 ? 's' : ''}</p>
+            </div>
+
+            <Divider />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {partenaires.map((item) => (
+                <div key={item.id} className="group bg-[#0D1612] border border-white/8 rounded-2xl overflow-hidden hover:border-[#C9A96E]/25 transition-all duration-300 hover:shadow-xl hover:shadow-[#C9A96E]/5 hover:-translate-y-0.5">
+                  {/* Logo preview */}
+                  <div className="relative h-32 bg-[#080E0C] flex items-center justify-center p-6 overflow-hidden">
+                    <Image src={item.logo} alt={item.name} fill className="object-contain p-6 brightness-0 invert opacity-70 group-hover:opacity-95 transition-opacity duration-300" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" unoptimized />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-white font-serif text-base mb-1 line-clamp-1">{item.name}</h3>
+                    {item.website && (
+                      <p className="text-[#C9A96E]/50 text-xs mb-2 truncate">🔗 {item.website}</p>
+                    )}
+                    <p className="text-white/40 text-xs leading-relaxed line-clamp-2 min-h-[2.5rem]">{item.description}</p>
+                    <div className="flex items-center gap-2 mt-4">
+                      <button onClick={() => openEditPartenaire(item)} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-amber-500/20 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/35 transition-all duration-200 text-xs font-medium">
+                        <Pencil size={13} />Modifier
+                      </button>
+                      <button onClick={() => deletePartenaire(item)} disabled={deleteId === item.id} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/35 transition-all duration-200 text-xs font-medium disabled:opacity-50">
+                        {deleteId === item.id ? <div className="w-3.5 h-3.5 border border-red-400/30 border-t-red-400 rounded-full animate-spin" /> : <Trash2 size={13} />}
+                        Supprimer
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {partenaires.length === 0 && (
+                <div className="col-span-full flex flex-col items-center justify-center py-28 text-center">
+                  <div className="w-16 h-16 rounded-full border border-[#C9A96E]/15 bg-[#0D1612] flex items-center justify-center mb-5">
+                    <Handshake size={24} className="text-[#C9A96E]/30" />
+                  </div>
+                  <p className="text-white/35 text-sm">Aucun partenaire publié.</p>
+                  <button onClick={openAddPartenaire} className="mt-3 text-[#C9A96E] hover:text-[#C9A96E]/60 text-sm transition-colors underline underline-offset-4">Ajouter le premier</button>
+                </div>
+              )}
+            </div>
+          </>
+
         ) : (
 
           /* ══════════════ RÉALISATIONS SECTION ══════════════ */
@@ -1110,6 +1237,50 @@ export default function DashboardPage() {
                 <button type="button" onClick={closeCocktailModal} className="flex-1 py-3 rounded-xl border border-white/10 text-white/50 hover:text-white hover:border-white/20 transition-all duration-200 text-sm font-medium">Annuler</button>
                 <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-[#C9A96E] hover:bg-[#b8935a] text-[#080E0C] font-semibold transition-all duration-200 text-sm disabled:opacity-60 flex items-center justify-center gap-2 shadow-lg shadow-[#C9A96E]/20">
                   {saving ? <div className="w-4 h-4 border-2 border-[#080E0C]/25 border-t-[#080E0C] rounded-full animate-spin" /> : (editingCocktail ? 'Enregistrer' : 'Ajouter')}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ════════════════ PARTENAIRE MODAL ════════════════ */}
+      {partenaireModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md" onClick={(e) => { if (e.target === e.currentTarget) closePartenaireModal() }}>
+          <div className="w-full max-w-lg bg-[#0D1612] border border-[#C9A96E]/25 rounded-2xl shadow-2xl shadow-black/80 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[#C9A96E]/12 sticky top-0 bg-[#0D1612] z-10">
+              <div>
+                <h2 className="text-white text-lg font-semibold">{editingPartenaire ? 'Modifier le partenaire' : 'Ajouter un partenaire'}</h2>
+                <p className="text-[#C9A96E]/45 text-xs mt-0.5 uppercase tracking-widest">Partenaires</p>
+              </div>
+              <button onClick={closePartenaireModal} className="text-white/30 hover:text-white/80 transition-colors p-2 rounded-xl hover:bg-white/5"><X size={18} /></button>
+            </div>
+            <form onSubmit={savePartenaire} className="p-6 space-y-5">
+              <div>
+                <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Nom *</label>
+                <input type="text" value={partenaireForm.name} onChange={e => setPartenaireForm(f => ({ ...f, name: e.target.value }))} required placeholder="Ex : Groupe BMC" className="w-full bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors" />
+              </div>
+              <div>
+                <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Logo *</label>
+                <ImageUploadField value={partenaireForm.logo} onChange={v => setPartenaireForm(f => ({ ...f, logo: v }))} />
+                {partenaireForm.logo && (
+                  <div className="relative h-20 mt-3 rounded-xl overflow-hidden border border-white/8 bg-[#080E0C] flex items-center justify-center p-4">
+                    <Image src={partenaireForm.logo} alt="Aperçu logo" fill className="object-contain p-4 brightness-0 invert opacity-80" unoptimized />
+                  </div>
+                )}
+              </div>
+              <div>
+                <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Description <span className="normal-case text-white/20">(optionnel)</span></label>
+                <textarea value={partenaireForm.description} onChange={e => setPartenaireForm(f => ({ ...f, description: e.target.value }))} rows={3} placeholder="Description du partenaire..." className="w-full bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors resize-none" />
+              </div>
+              <div>
+                <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Site web <span className="normal-case text-white/20">(optionnel)</span></label>
+                <input type="url" value={partenaireForm.website} onChange={e => setPartenaireForm(f => ({ ...f, website: e.target.value }))} placeholder="https://exemple.com" className="w-full bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors" />
+              </div>
+              <div className="flex gap-3 pt-1">
+                <button type="button" onClick={closePartenaireModal} className="flex-1 py-3 rounded-xl border border-white/10 text-white/50 hover:text-white hover:border-white/20 transition-all duration-200 text-sm font-medium">Annuler</button>
+                <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl bg-[#C9A96E] hover:bg-[#b8935a] text-[#080E0C] font-semibold transition-all duration-200 text-sm disabled:opacity-60 flex items-center justify-center gap-2 shadow-lg shadow-[#C9A96E]/20">
+                  {saving ? <div className="w-4 h-4 border-2 border-[#080E0C]/25 border-t-[#080E0C] rounded-full animate-spin" /> : (editingPartenaire ? 'Enregistrer' : 'Ajouter')}
                 </button>
               </div>
             </form>

@@ -29,7 +29,6 @@ export default async function Services() {
     <section id="services" className="py-24 bg-black">
       <div className="container mx-auto px-6">
         <SectionTitle
-          eyebrow="Nos prestations"
           title="Nos Réalisations"
           subtitle="Des rassemblements intimistes aux grandes célébrations, nous apportons l'art de la mixologie directement sur votre lieu d'événement."
           className="mb-16"

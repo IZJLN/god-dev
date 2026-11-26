@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Bmc from "@/assets/logoPartners/bmc.png";
 import Hrd from "@/assets/logoPartners/hrd.svg";
 import Materieldebar from "@/assets/logoPartners/materieldebar.png";
@@ -94,6 +95,19 @@ export default function LogoCarousel() {
           }
         `}</style>
       )}
+
+      {/* Lien vers la page partenaires */}
+      <div className="container mx-auto px-6 mt-10 flex justify-center">
+        <Link
+          href="/partenaires"
+          className="inline-flex items-center gap-3 text-[0.6rem] tracking-[0.3em] uppercase text-white/35 hover:text-[#C9A96E] transition-colors duration-300 group"
+          style={{ fontFamily: "var(--font-lato), sans-serif" }}
+        >
+          <span className="w-8 h-px bg-white/20 group-hover:bg-[#C9A96E]/60 transition-colors" />
+          Découvrir nos partenaires
+          <span className="w-8 h-px bg-white/20 group-hover:bg-[#C9A96E]/60 transition-colors" />
+        </Link>
+      </div>
     </section>
   );
 }
