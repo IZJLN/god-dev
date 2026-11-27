@@ -1228,7 +1228,7 @@ export default function DashboardPage() {
                 <div key={item.id} className={`group bg-[#0D1612] border rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 ${item.featured ? 'border-yellow-500/40 hover:border-yellow-500/60 shadow-yellow-500/5' : 'border-white/8 hover:border-[#C9A96E]/25 hover:shadow-[#C9A96E]/5'}`}>
                   {/* Logo preview */}
                   <div className="relative h-32 bg-[#080E0C] flex items-center justify-center p-6 overflow-hidden">
-                    <Image src={item.logo} alt={item.name} fill className="object-contain p-6 brightness-0 invert opacity-70 group-hover:opacity-95 transition-opacity duration-300" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" unoptimized />
+                    <Image src={item.logo} alt={item.name} fill className="object-contain p-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" unoptimized />
                     {item.featured && (
                       <div className="absolute top-2 right-2 flex items-center gap-1 bg-yellow-500/15 border border-yellow-500/30 rounded-full px-2 py-0.5">
                         <Star size={9} className="text-yellow-400 fill-yellow-400" />

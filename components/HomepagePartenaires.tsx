@@ -47,7 +47,7 @@ export default async function HomepagePartenaires() {
                     src={p.logo}
                     alt={p.name}
                     fill
-                    className="object-contain brightness-0 invert opacity-70 group-hover:opacity-95 transition-opacity duration-300"
+                    className="object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                     unoptimized
                   />
                 </div>
