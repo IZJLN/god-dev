@@ -36,8 +36,8 @@ const ChooseUs = () => {
               <Image
                 src={item.icon}
                 alt={item.label}
-                width={160}
-                height={160}
+                width={192}
+                height={192}
                 className="opacity-90 group-hover:opacity-100 transition-opacity duration-300"
               />
               <h3

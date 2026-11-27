@@ -7,9 +7,9 @@ import imgAtelier from "../assets/services/atelier.jpg";
 import imgSoiree from "../assets/services/soiree-privee.jpg";
 
 const CATEGORIES = [
-  { slug: "mariage",       label: "Mariage",        image: imgMariage },
-  { slug: "atelier",       label: "Atelier",         image: imgAtelier },
-  { slug: "soiree-privee", label: "Soirée privée",  image: imgSoiree  },
+  { slug: "mariage",       label: "Mariages",        image: imgMariage },
+  { slug: "atelier",       label: "Ateliers",        image: imgAtelier },
+  { slug: "soiree-privee", label: "Soirées privées", image: imgSoiree  },
 ];
 
 export default function Services() {
