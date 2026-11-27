@@ -6,7 +6,7 @@ import Link from 'next/link'
 import {
   Pencil, Trash2, Plus, ChevronLeft, Eye, EyeOff,
   X, LogOut, GlassWater, CalendarDays, Handshake,
-  ChevronDown, ChevronUp, Upload,
+  ChevronDown, ChevronUp, Upload, Star,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
@@ -16,16 +16,16 @@ type MainSection = 'cocktails' | 'realisations' | 'partenaires'
 type CocktailCategory = 'cocktails' | 'mocktails' | 'classiques'
 
 interface CocktailItem { id: number; name: string; image: string; description: string; year: string }
-interface RealisationItem { id: number; title: string; date: string; location: string; description: string; image: string; path: string; subtitle?: string }
+interface RealisationItem { id: number; title: string; date: string; location: string; description: string; image: string; path: string; subtitle?: string; category?: string }
 interface CocktailData { cocktails: CocktailItem[]; mocktails: CocktailItem[]; classiques: CocktailItem[] }
-interface PartenaireItem { id: number; name: string; logo: string; description: string; website: string }
+interface PartenaireItem { id: number; name: string; logo: string; description: string; website: string; featured: boolean }
 
 interface EventCocktail { name: string; image: string; description: string; ingredients: string[] }
 interface EventGalleryItem { src: string; alt: string }
 interface EventStat { value: string; label: string }
 interface EventContent {
   hero: { image: string; title: string; titleAccent: string; date: string; location: string; guests: string; description: string }
-  story: { eyebrow: string; title: string; paragraphs: string[]; image: string; stats: EventStat[] }
+  story: { eyebrow: string; title: string; paragraphs: string[]; image: string; video?: string; stats: EventStat[] }
   cocktails: EventCocktail[]
   gallery: EventGalleryItem[]
 }
@@ -38,8 +38,8 @@ const COCKTAIL_TABS: { key: CocktailCategory; label: string }[] = [
   { key: 'classiques', label: 'Classiques' },
 ]
 const EMPTY_COCKTAIL = { name: '', image: '', description: '', year: '' }
-const EMPTY_REAL = { title: '', date: '', location: '', description: '', image: '', path: '', subtitle: '' }
-const EMPTY_PARTENAIRE = { name: '', logo: '', description: '', website: '' }
+const EMPTY_REAL = { title: '', date: '', location: '', description: '', image: '', path: '', subtitle: '', category: '' }
+const EMPTY_PARTENAIRE = { name: '', logo: '', description: '', website: '', featured: false }
 const EMPTY_EVENT_COCKTAIL: EventCocktail = { name: '', image: '', description: '', ingredients: [] }
 const EMPTY_GALLERY: EventGalleryItem = { src: '', alt: '' }
 
@@ -60,7 +60,7 @@ function slugFromTitle(title: string): string {
 
 const DEFAULT_EVENT_CONTENT = {
   hero: { image: '', title: '', titleAccent: '', subtitle: '', date: '', location: '', guests: '', description: '' },
-  story: { eyebrow: '', title: '', paragraphs: [''], image: '', stats: [{ value: '', label: '' }, { value: '', label: '' }, { value: '', label: '' }] },
+  story: { eyebrow: '', title: '', paragraphs: [''], image: '', video: '', stats: [{ value: '', label: '' }, { value: '', label: '' }, { value: '', label: '' }] },
   cocktails: [],
   gallery: [],
 }
@@ -194,6 +194,50 @@ function ImageUploadField({ value, onChange }: { value: string; onChange: (url: 
         {uploading ? 'Envoi…' : 'Téléverser'}
         <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={handleFile} disabled={uploading} />
       </label>
+    </div>
+  )
+}
+
+function VideoUploadField({ value, onChange }: { value: string; onChange: (url: string) => void }) {
+  const [uploading, setUploading] = useState(false)
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const ext = file.name.split('.').pop() ?? 'mp4'
+      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+      const { error } = await supabase.storage.from('images').upload(fileName, file, { upsert: false, contentType: file.type })
+      if (error) throw error
+      const { data } = supabase.storage.from('images').getPublicUrl(fileName)
+      onChange(data.publicUrl)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : JSON.stringify(err)
+      alert(`Erreur upload : ${msg}`)
+    } finally {
+      setUploading(false)
+      e.target.value = ''
+    }
+  }
+
+  return (
+    <div className="space-y-2">
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder="URL Instagram (reel/post) ou lien vidéo direct"
+          className="flex-1 bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors"
+        />
+        <label className={`cursor-pointer flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-[#C9A96E]/25 text-[#C9A96E]/70 hover:bg-[#C9A96E]/10 hover:border-[#C9A96E]/50 transition-all text-xs font-medium whitespace-nowrap ${uploading ? 'opacity-60 pointer-events-none' : ''}`}>
+          {uploading ? <div className="w-3.5 h-3.5 border border-[#C9A96E]/30 border-t-[#C9A96E] rounded-full animate-spin" /> : <Upload size={13} />}
+          {uploading ? 'Envoi…' : 'Téléverser'}
+          <input type="file" accept="video/mp4,video/quicktime,video/webm,video/mov" className="hidden" onChange={handleFile} disabled={uploading} />
+        </label>
+      </div>
+      <p className="text-white/25 text-xs">Si renseigné, la vidéo remplace la photo à droite du texte.</p>
     </div>
   )
 }
@@ -371,7 +415,7 @@ export default function DashboardPage() {
   function openAddPartenaire() { setEditingPartenaire(null); setPartenaireForm(EMPTY_PARTENAIRE); setPartenaireModal(true) }
   function openEditPartenaire(item: PartenaireItem) {
     setEditingPartenaire(item)
-    setPartenaireForm({ name: item.name, logo: item.logo, description: item.description, website: item.website })
+    setPartenaireForm({ name: item.name, logo: item.logo, description: item.description, website: item.website, featured: item.featured })
     setPartenaireModal(true)
   }
   function closePartenaireModal() { setPartenaireModal(false); setEditingPartenaire(null); setPartenaireForm(EMPTY_PARTENAIRE) }
@@ -408,6 +452,21 @@ export default function DashboardPage() {
       if (error) throw error
       await fetchPartenaires()
     } catch { console.error('Failed to delete partenaire') } finally { setDeleteId(null) }
+  }
+
+  async function toggleFeatured(item: PartenaireItem) {
+    if (!item.featured && partenaires.filter(p => p.featured).length >= 4) {
+      alert('Maximum 4 partenaires peuvent être mis en avant sur la page d\'accueil.')
+      return
+    }
+    try {
+      const { error } = await supabase
+        .from('partenaires')
+        .update({ featured: !item.featured })
+        .eq('id', item.id)
+      if (error) throw error
+      await fetchPartenaires()
+    } catch { console.error('Failed to toggle featured') }
   }
 
   // ── Réalisation CRUD ──────────────────────────────────────────────────────────────────────
@@ -507,7 +566,7 @@ export default function DashboardPage() {
       }
 
       setEditingReal(item)
-      setRealForm({ title: item.title, date: item.date, location: item.location, description: item.description, image: item.image, path: item.path, subtitle: item.subtitle ?? '' })
+      setRealForm({ title: item.title, date: item.date, location: item.location, description: item.description, image: item.image, path: item.path, subtitle: item.subtitle ?? '', category: item.category ?? '' })
       setContentData(data.content as EventContent)
       setContentEditorSlug(slug)
       setContentEditorTitle(item.title)
@@ -530,7 +589,7 @@ export default function DashboardPage() {
       const { error: e1 } = await supabase.from('evenements').update({ content: contentData }).eq('slug', contentEditorSlug)
       if (e1) throw e1
       if (editingReal) {
-        const { error: e2 } = await supabase.from('realisations').update({ title: realForm.title, date: realForm.date, location: realForm.location, description: realForm.description, image: realForm.image, subtitle: realForm.subtitle }).eq('id', editingReal.id)
+        const { error: e2 } = await supabase.from('realisations').update({ title: realForm.title, date: realForm.date, location: realForm.location, description: realForm.description, image: realForm.image, subtitle: realForm.subtitle, category: realForm.category || null }).eq('id', editingReal.id)
         if (e2) throw e2
       }
       await fetchReals()
@@ -703,6 +762,15 @@ export default function DashboardPage() {
                 )}
               </div>
               <div>
+                <FieldLabel>Catégorie</FieldLabel>
+                <select value={realForm.category ?? ''} onChange={e => setRealForm(f => ({ ...f, category: e.target.value }))} className="w-full bg-[#0D1612] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#C9A96E]/40 transition-colors appearance-none cursor-pointer">
+                  <option value="">— Aucune —</option>
+                  <option value="mariage">Mariage</option>
+                  <option value="soiree-privee">Soirée privée</option>
+                  <option value="atelier">Atelier</option>
+                </select>
+              </div>
+              <div>
                 <FieldLabel>Description</FieldLabel>
                 <TextArea value={realForm.description} onChange={v => setRealForm(f => ({ ...f, description: v }))} rows={3} placeholder="Un moment unique pour..." />
               </div>
@@ -776,6 +844,10 @@ export default function DashboardPage() {
                   <Image src={contentData.story.image} alt="Aperçu" fill className="object-cover" unoptimized />
                 </div>
               )}
+            </div>
+            <div>
+              <FieldLabel>Vidéo <span className="normal-case text-white/20">(optionnel — remplace la photo)</span></FieldLabel>
+              <VideoUploadField value={contentData.story.video ?? ''} onChange={v => setStory({ video: v })} />
             </div>
             <div>
               <FieldLabel>Chiffres clés (3 stats)</FieldLabel>
@@ -1081,19 +1153,31 @@ export default function DashboardPage() {
               </button>
             </div>
 
-            <div className="inline-flex items-center gap-4 rounded-xl border border-[#C9A96E]/20 bg-[#C9A96E]/5 px-6 py-4 mb-10">
-              <p className="text-4xl font-serif font-light text-[#C9A96E]">{partenaires.length}</p>
-              <p className="text-xs uppercase tracking-widest text-[#C9A96E]/70">Partenaire{partenaires.length > 1 ? 's' : ''} publié{partenaires.length > 1 ? 's' : ''}</p>
+            <div className="flex flex-wrap gap-4 mb-10">
+              <div className="inline-flex items-center gap-4 rounded-xl border border-[#C9A96E]/20 bg-[#C9A96E]/5 px-6 py-4">
+                <p className="text-4xl font-serif font-light text-[#C9A96E]">{partenaires.length}</p>
+                <p className="text-xs uppercase tracking-widest text-[#C9A96E]/70">Partenaire{partenaires.length > 1 ? 's' : ''} publié{partenaires.length > 1 ? 's' : ''}</p>
+              </div>
+              <div className="inline-flex items-center gap-4 rounded-xl border border-yellow-500/20 bg-yellow-500/5 px-6 py-4">
+                <p className="text-4xl font-serif font-light text-yellow-400">{partenaires.filter(p => p.featured).length}<span className="text-xl text-yellow-400/50">/4</span></p>
+                <p className="text-xs uppercase tracking-widest text-yellow-400/70">En vitrine<br/>sur l'accueil</p>
+              </div>
             </div>
 
             <Divider />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {partenaires.map((item) => (
-                <div key={item.id} className="group bg-[#0D1612] border border-white/8 rounded-2xl overflow-hidden hover:border-[#C9A96E]/25 transition-all duration-300 hover:shadow-xl hover:shadow-[#C9A96E]/5 hover:-translate-y-0.5">
+                <div key={item.id} className={`group bg-[#0D1612] border rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 ${item.featured ? 'border-yellow-500/40 hover:border-yellow-500/60 shadow-yellow-500/5' : 'border-white/8 hover:border-[#C9A96E]/25 hover:shadow-[#C9A96E]/5'}`}>
                   {/* Logo preview */}
                   <div className="relative h-32 bg-[#080E0C] flex items-center justify-center p-6 overflow-hidden">
                     <Image src={item.logo} alt={item.name} fill className="object-contain p-6 brightness-0 invert opacity-70 group-hover:opacity-95 transition-opacity duration-300" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" unoptimized />
+                    {item.featured && (
+                      <div className="absolute top-2 right-2 flex items-center gap-1 bg-yellow-500/15 border border-yellow-500/30 rounded-full px-2 py-0.5">
+                        <Star size={9} className="text-yellow-400 fill-yellow-400" />
+                        <span className="text-yellow-400 text-[0.6rem] uppercase tracking-wider">Vitrine</span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h3 className="text-white font-serif text-base mb-1 line-clamp-1">{item.name}</h3>
@@ -1102,6 +1186,13 @@ export default function DashboardPage() {
                     )}
                     <p className="text-white/40 text-xs leading-relaxed line-clamp-2 min-h-[2.5rem]">{item.description}</p>
                     <div className="flex items-center gap-2 mt-4">
+                      <button
+                        onClick={() => toggleFeatured(item)}
+                        title={item.featured ? 'Retirer de la vitrine' : 'Afficher sur l\'accueil'}
+                        className={`flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl border transition-all duration-200 text-xs font-medium ${item.featured ? 'border-yellow-500/40 text-yellow-400 bg-yellow-500/10 hover:bg-yellow-500/20' : 'border-white/10 text-white/35 hover:text-yellow-400 hover:border-yellow-500/30 hover:bg-yellow-500/5'}`}
+                      >
+                        <Star size={13} className={item.featured ? 'fill-yellow-400' : ''} />
+                      </button>
                       <button onClick={() => openEditPartenaire(item)} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-amber-500/20 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/35 transition-all duration-200 text-xs font-medium">
                         <Pencil size={13} />Modifier
                       </button>
@@ -1303,6 +1394,15 @@ export default function DashboardPage() {
               <div>
                 <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Titre *</label>
                 <input type="text" value={realForm.title} onChange={e => setRealForm(f => ({ ...f, title: e.target.value }))} required placeholder="Ex : Mariage de Sophie & Thomas" className="w-full bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors" />
+              </div>
+              <div>
+                <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Catégorie</label>
+                <select value={realForm.category} onChange={e => setRealForm(f => ({ ...f, category: e.target.value }))} className="w-full bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#C9A96E]/40 transition-colors appearance-none cursor-pointer">
+                  <option value="">— Aucune —</option>
+                  <option value="mariage">Mariage</option>
+                  <option value="soiree-privee">Soirée privée</option>
+                  <option value="atelier">Atelier</option>
+                </select>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>

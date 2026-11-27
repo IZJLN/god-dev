@@ -31,13 +31,13 @@ const ChooseUs = () => {
           {reasons.map((item, i) => (
             <div
               key={i}
-              className="group flex flex-col items-start gap-4 p-8 bg-black hover:bg-[#0A0A0A] transition-colors duration-300"
+              className="group flex flex-col items-center text-center gap-5 p-8 py-10 bg-black hover:bg-[#0A0A0A] transition-colors duration-300"
             >
               <Image
                 src={item.icon}
                 alt={item.label}
-                width={72}
-                height={72}
+                width={128}
+                height={128}
                 className="opacity-90 group-hover:opacity-100 transition-opacity duration-300"
               />
               <h3

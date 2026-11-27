@@ -14,6 +14,7 @@ import GoogleReviews from "@/components/GoogleReviews";
 import Event from "../components/Event";
 import PartnersCarousel from "@/components/PartnersCarousel";
 import MansoryGalery from "@/components/MansoryGalery";
+import HomepagePartenaires from "@/components/HomepagePartenaires";
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
       <Quote2 />
       <PartnersCarousel />
       <MansoryGalery />
+      <HomepagePartenaires />
       <ChooseUs />
       <Contact />
       <Event />

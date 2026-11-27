@@ -1,6 +1,5 @@
 import { unstable_noStore as noStore } from "next/cache";
 import Image from "next/image";
-import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import img1 from "../assets/MansoryPhoto/1.jpg";
 import img2 from "../assets/MansoryPhoto/2.jpg";
@@ -109,18 +108,6 @@ export default async function Gallery() {
             ))}
           </div>
         ))}
-      </div>
-      {/* Lien vers la page partenaires */}
-      <div className="container mx-auto px-6 py-10 flex justify-center">
-        <Link
-          href="/partenaires"
-          className="inline-flex items-center gap-4 text-xs tracking-[0.3em] uppercase text-white/35 hover:text-[#C9A96E] transition-colors duration-300 group"
-          style={{ fontFamily: "var(--font-lato), sans-serif" }}
-        >
-          <span className="w-10 h-px bg-white/20 group-hover:bg-[#C9A96E]/60 transition-colors" />
-          Découvrir nos partenaires
-          <span className="w-10 h-px bg-white/20 group-hover:bg-[#C9A96E]/60 transition-colors" />
-        </Link>
       </div>
     </section>
   );

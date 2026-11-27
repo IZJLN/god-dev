@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Calendar, MapPin, ChevronLeft, ArrowRight } from "lucide-react";
 import Footer2 from "@/components/Footer2";
 import SectionTitle from "@/components/ui/SectionTitle";
+import StoryVideoPlayer from "@/components/StoryVideoPlayer";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -23,6 +24,7 @@ export interface EventContent {
     title: string;
     paragraphs: string[];
     image: string;
+    video?: string;
     stats: { value: string; label: string }[];
   };
   cocktails: {
@@ -32,6 +34,32 @@ export interface EventContent {
     ingredients: string[];
   }[];
   gallery: { src: string; alt: string }[];
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function StoryMedia({ story }: { story: EventContent["story"] }) {
+  if (story.video) {
+    const ig = story.video.match(/instagram\.com\/(p|reel)\/([^/?#]+)/);
+    if (ig) {
+      return (
+        <iframe
+          src={`https://www.instagram.com/${ig[1]}/${ig[2]}/embed/`}
+          className="absolute inset-0 w-full h-full border-0"
+          scrolling="no"
+          allowTransparency={true}
+        />
+      );
+    }
+    return <StoryVideoPlayer src={story.video} />;
+  }
+  if (!story.image) return null;
+  return (
+    <>
+      <Image src={story.image} alt={story.title} fill className="object-cover" unoptimized />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/40 to-transparent" />
+    </>
+  );
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -180,14 +208,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                   <div className="absolute top-3 right-3 w-5 h-5 border-t border-r border-[#C9A96E]/50 z-10" />
                   <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-[#C9A96E]/50 z-10" />
                   <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-[#C9A96E]/50 z-10" />
-                  <Image
-                    src={story.image}
-                    alt={story.title}
-                    fill
-                    className="object-cover"
-                    unoptimized
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/40 to-transparent" />
+                  <StoryMedia story={story} />
                 </div>
               </div>
             </div>
