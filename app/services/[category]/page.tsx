@@ -8,9 +8,9 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import Footer2 from "@/components/Footer2";
 
 const CATEGORY_LABELS: Record<string, string> = {
-  "mariage": "Mariage",
-  "soiree-privee": "Soirée privée",
-  "atelier": "Atelier",
+  "mariage": "Mariages",
+  "soiree-privee": "Soirées privées",
+  "atelier": "Ateliers",
 };
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {

@@ -17,7 +17,7 @@ export default function StoryVideoPlayer({ src }: { src: string }) {
           video.pause();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
     observer.observe(video);
@@ -32,6 +32,8 @@ export default function StoryVideoPlayer({ src }: { src: string }) {
       muted
       loop
       playsInline
+      autoPlay
+      preload="auto"
     />
   );
 }
