@@ -2,35 +2,17 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import SectionTitle from "./ui/SectionTitle";
-import { supabase } from "@/lib/supabase";
-import img1 from "../assets/MansoryPhoto/1.jpg";
-import img5 from "../assets/MansoryPhoto/5.jpg";
+import imgMariage from "../assets/services/mariage.jpg";
+import imgAtelier from "../assets/services/atelier.jpg";
+import imgSoiree from "../assets/services/soiree-privee.jpg";
 
 const CATEGORIES = [
-  { slug: "mariage", label: "Mariage", fallback: img1, dynamic: false },
-  { slug: "soiree-privee", label: "Soirée privée", fallback: img5, dynamic: false },
-  { slug: "atelier", label: "Atelier", fallback: "https://hyxiiqqmathtjcaprxac.supabase.co/storage/v1/object/public/images/1795267537039-2yjsdbovvmt.jpg", dynamic: true },
+  { slug: "mariage",       label: "Mariage",        image: imgMariage },
+  { slug: "atelier",       label: "Atelier",         image: imgAtelier },
+  { slug: "soiree-privee", label: "Soirée privée",  image: imgSoiree  },
 ];
 
-async function getCategoryCovers() {
-  const { data } = await supabase
-    .from("realisations")
-    .select("category, image")
-    .not("category", "is", null)
-    .order("created_at", { ascending: false });
-
-  const covers = {};
-  for (const item of data ?? []) {
-    if (item.category && item.image && !covers[item.category]) {
-      covers[item.category] = item.image;
-    }
-  }
-  return covers;
-}
-
-export default async function Services() {
-  const covers = await getCategoryCovers();
-
+export default function Services() {
   return (
     <section id="services" className="py-24 bg-black">
       <div className="container mx-auto px-6">
@@ -42,14 +24,7 @@ export default async function Services() {
 
         <div className="grid md:grid-cols-3 gap-4">
           {CATEGORIES.map((cat) => (
-            <ServiceCard
-              key={cat.slug}
-              slug={cat.slug}
-              label={cat.label}
-              cover={covers[cat.slug]}
-              fallback={cat.fallback}
-              dynamic={cat.dynamic}
-            />
+            <ServiceCard key={cat.slug} slug={cat.slug} label={cat.label} image={cat.image} />
           ))}
         </div>
       </div>
@@ -57,7 +32,7 @@ export default async function Services() {
   );
 }
 
-function ServiceCard({ slug, label, cover, fallback, dynamic }) {
+function ServiceCard({ slug, label, image }) {
   return (
     <Link
       href={`/services/${slug}`}
@@ -65,10 +40,9 @@ function ServiceCard({ slug, label, cover, fallback, dynamic }) {
     >
       <Image
         fill
-        src={cover || fallback}
+        src={image}
         alt={label}
         className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-45"
-        unoptimized={!!(cover || dynamic)}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 

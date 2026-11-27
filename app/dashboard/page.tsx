@@ -1160,7 +1160,7 @@ export default function DashboardPage() {
               </div>
               <div className="inline-flex items-center gap-4 rounded-xl border border-yellow-500/20 bg-yellow-500/5 px-6 py-4">
                 <p className="text-4xl font-serif font-light text-yellow-400">{partenaires.filter(p => p.featured).length}<span className="text-xl text-yellow-400/50">/4</span></p>
-                <p className="text-xs uppercase tracking-widest text-yellow-400/70">En vitrine<br/>sur l'accueil</p>
+                <p className="text-xs uppercase tracking-widest text-yellow-400/70">En vitrine<br/>sur l&apos;accueil</p>
               </div>
             </div>
 
