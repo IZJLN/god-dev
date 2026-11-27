@@ -1,7 +1,7 @@
 import InstagramIcon from "./ui/InstagramIcon";
 import Link from "next/link";
 import Image from "next/image";
-import PhotoHeader from "@/assets/PhotoHeader.jpg";
+import PhotoHeader from "@/assets/PhotoHeaderNew.jpg";
 
 const Hero = () => {
   return (
@@ -48,7 +48,7 @@ const Hero = () => {
             className="text-[0.65rem] tracking-[0.4em] uppercase text-white/50 mb-10 max-w-sm"
             style={{ fontFamily: "var(--font-lato), sans-serif" }}
           >
-            L&apos;art du cocktail pour sublimer vos évènements
+            L&apos;art du cocktail<br />pour sublimer vos évènements
           </p>
 
           {/* CTA row */}

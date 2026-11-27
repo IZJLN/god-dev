@@ -157,7 +157,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
               </span>
             </div>
             <p
-              className="text-white/70 text-base md:text-lg leading-relaxed max-w-2xl mx-auto"
+              className="text-white/70 text-base md:text-lg leading-relaxed max-w-2xl mx-auto whitespace-pre-wrap"
               style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
             >
               {hero.description}
@@ -199,7 +199,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                   className="space-y-5 text-white/70 text-sm md:text-base leading-relaxed"
                   style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
                 >
-                  {story.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+                  {story.paragraphs.map((p, i) => <p key={i} className="whitespace-pre-wrap">{p}</p>)}
                 </div>
               </div>
               <div className="relative">
@@ -278,7 +278,7 @@ export default function EventDetailPage({ data }: { data: EventContent }) {
                       </h3>
                       {description && (
                         <p
-                          className="text-white/55 text-sm leading-relaxed mb-3"
+                          className="text-white/55 text-sm leading-relaxed mb-3 whitespace-pre-wrap"
                           style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
                         >
                           {description}
