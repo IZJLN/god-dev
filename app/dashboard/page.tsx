@@ -154,6 +154,16 @@ async function uploadImage(file: File): Promise<string> {
   return data.publicUrl
 }
 
+async function uploadLogo(file: File): Promise<string> {
+  const ext = file.name.split('.').pop()?.toLowerCase() ?? 'png'
+  const mime = file.type || 'image/png'
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+  const { error } = await supabase.storage.from('images').upload(fileName, file, { upsert: false, contentType: mime })
+  if (error) throw error
+  const { data } = supabase.storage.from('images').getPublicUrl(fileName)
+  return data.publicUrl
+}
+
 function ImageUploadField({ value, onChange }: { value: string; onChange: (url: string) => void }) {
   const [uploading, setUploading] = useState(false)
 
@@ -194,6 +204,53 @@ function ImageUploadField({ value, onChange }: { value: string; onChange: (url: 
         {uploading ? 'Envoi…' : 'Téléverser'}
         <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={handleFile} disabled={uploading} />
       </label>
+    </div>
+  )
+}
+
+function LogoUploadField({ value, onChange }: { value: string; onChange: (url: string) => void }) {
+  const [uploading, setUploading] = useState(false)
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const url = await uploadLogo(file)
+      onChange(url)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : JSON.stringify(err)
+      alert(`Erreur upload : ${msg}`)
+    } finally {
+      setUploading(false)
+      e.target.value = ''
+    }
+  }
+
+  return (
+    <div>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder="https://... ou téléverser →"
+          className="flex-1 bg-[#080E0C] border border-white/8 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#C9A96E]/40 transition-colors"
+        />
+        <label className={`cursor-pointer flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-[#C9A96E]/25 text-[#C9A96E]/70 hover:bg-[#C9A96E]/10 hover:border-[#C9A96E]/50 transition-all text-xs font-medium whitespace-nowrap ${uploading ? 'opacity-60 pointer-events-none' : ''}`}>
+          {uploading
+            ? <div className="w-3.5 h-3.5 border border-[#C9A96E]/30 border-t-[#C9A96E] rounded-full animate-spin" />
+            : <Upload size={13} />
+          }
+          {uploading ? 'Envoi…' : 'Téléverser'}
+          <input type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" className="hidden" onChange={handleFile} disabled={uploading} />
+        </label>
+      </div>
+      {value && (
+        <div className="relative h-20 mt-3 rounded-xl overflow-hidden border border-white/8 bg-white/5 flex items-center justify-center">
+          <Image src={value} alt="Aperçu logo" fill className="object-contain p-3" unoptimized />
+        </div>
+      )}
     </div>
   )
 }
@@ -1353,12 +1410,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Logo *</label>
-                <ImageUploadField value={partenaireForm.logo} onChange={v => setPartenaireForm(f => ({ ...f, logo: v }))} />
-                {partenaireForm.logo && (
-                  <div className="relative h-20 mt-3 rounded-xl overflow-hidden border border-white/8 bg-[#080E0C] flex items-center justify-center p-4">
-                    <Image src={partenaireForm.logo} alt="Aperçu logo" fill className="object-contain p-4 brightness-0 invert opacity-80" unoptimized />
-                  </div>
-                )}
+                <LogoUploadField value={partenaireForm.logo} onChange={v => setPartenaireForm(f => ({ ...f, logo: v }))} />
               </div>
               <div>
                 <label className="block text-white/50 text-xs uppercase tracking-widest mb-2">Description <span className="normal-case text-white/20">(optionnel)</span></label>
