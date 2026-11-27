@@ -5,7 +5,7 @@ import PhotoHeader from "@/assets/PhotoHeaderNew.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-end overflow-hidden bg-black">
+    <section className="relative min-h-screen flex items-center md:items-end overflow-hidden bg-black">
 
       {/* ── Background image full-bleed ── */}
       <div className="absolute inset-0">

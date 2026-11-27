@@ -31,15 +31,16 @@ const ChooseUs = () => {
           {reasons.map((item, i) => (
             <div
               key={i}
-              className="group flex flex-col items-center text-center gap-5 p-8 py-10 bg-black hover:bg-[#0A0A0A] transition-colors duration-300"
+              className="group flex flex-col items-center text-center gap-5 py-10 bg-black hover:bg-[#0A0A0A] transition-colors duration-300"
             >
-              <Image
-                src={item.icon}
-                alt={item.label}
-                width={192}
-                height={192}
-                className="opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-              />
+              <div className="relative w-full aspect-square flex-shrink-0">
+                <Image
+                  src={item.icon}
+                  alt={item.label}
+                  fill
+                  className="opacity-90 group-hover:opacity-100 transition-opacity duration-300 object-contain"
+                />
+              </div>
               <h3
                 className="text-xs tracking-[0.2em] uppercase text-white/75 group-hover:text-white transition-colors duration-300"
                 style={{ fontFamily: "var(--font-lato), sans-serif" }}
