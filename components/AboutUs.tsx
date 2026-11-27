@@ -13,7 +13,7 @@ export default function AboutUs() {
           className="mb-16"
         />
 
-        <div className="grid lg:grid-cols-[2fr_3fr] gap-16 items-start max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-[2fr_3fr] gap-16 items-center max-w-6xl mx-auto">
 
           {/* Photo */}
           <div className="relative aspect-[3/4] overflow-hidden">
@@ -28,12 +28,12 @@ export default function AboutUs() {
           </div>
 
           {/* Texte */}
-          <div className="flex flex-col gap-6 lg:pt-4">
+          <div className="flex flex-col gap-6">
             <p
               className="text-white/70 text-lg leading-relaxed"
               style={{ fontFamily: "var(--font-lato), sans-serif", fontWeight: 300 }}
             >
-              Mariages, soirées d&apos;entreprise, inaugurations, événements privés ou ateliers mixologie : Good Old Drinks installe l&apos;élégance d&apos;un bar à cocktails directement sur le lieu de vos événements, partout en France depuis Montpellier. Nous proposons des prestations 100 % clés en main avec des bars mobiles totalement autonomes, une équipe de bartenders dédiée pour garantir un service fluide, et la touche visuelle qui marque les esprits — bulles de fumée aromatique, impressions comestibles ou garnitures travaillées — pour que vous n&apos;ayez plus qu&apos;à profiter de vos invités.
+              Mariages, soirées d&apos;entreprise, inaugurations, événements privés ou ateliers mixologie, Good Old Drinks installe l&apos;élégance d&apos;un bar à cocktails directement sur le lieu de vos événements, partout en France depuis Montpellier. Nous proposons des prestations 100 % clés en main avec des bars mobiles totalement autonomes, une équipe de bartenders dédiée pour garantir un service fluide, et la touche visuelle qui marque les esprits : bulles de fumée aromatique, impressions comestibles ou garnitures travaillées, pour que vous n&apos;ayez plus qu&apos;à profiter de vos invités.
             </p>
             <p
               className="text-white/70 text-lg leading-relaxed"
