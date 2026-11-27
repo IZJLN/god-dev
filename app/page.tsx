@@ -15,6 +15,7 @@ import Event from "../components/Event";
 import PartnersCarousel from "@/components/PartnersCarousel";
 import MansoryGalery from "@/components/MansoryGalery";
 import HomepagePartenaires from "@/components/HomepagePartenaires";
+import AboutUs from "@/components/AboutUs";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
       <Quote2 />
       <PartnersCarousel />
       <MansoryGalery />
+      <AboutUs />
       <HomepagePartenaires />
       <ChooseUs />
       <Contact />
