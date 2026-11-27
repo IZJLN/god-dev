@@ -36,7 +36,7 @@ const CocktailCarousel: React.FC<Props> = ({ items }) => {
   const prevSlide = () => handleTransition((currentIndex - 1 + items.length) % items.length);
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto h-[500px] overflow-hidden bg-[#0D0E0C]">
+    <div className="relative w-full max-w-3xl mx-auto h-[500px] overflow-hidden bg-black">
 
       {/* Fading group — images + text */}
       <div
@@ -54,13 +54,13 @@ const CocktailCarousel: React.FC<Props> = ({ items }) => {
           aria-hidden
         />
         {/* Vignette — estompe les bords pour effacer le rectangle sur les PNG sans fond */}
-        <div className="absolute inset-0 shadow-[inset_0_0_90px_50px_#0D0E0C] z-10 pointer-events-none" />
+        <div className="absolute inset-0 shadow-[inset_0_0_120px_60px_black] z-10 pointer-events-none" />
         {/* Main image */}
         <Image
           src={items[currentIndex].image}
           alt={items[currentIndex].name}
           fill
-          className="object-contain"
+          className="object-contain mix-blend-lighten"
           unoptimized
         />
         {/* Gradient */}
