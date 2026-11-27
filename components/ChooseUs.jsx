@@ -8,7 +8,7 @@ import ChooseIcon6 from "../assets/icons/ChooseIcon6.svg";
 import SectionTitle from "./ui/SectionTitle";
 
 const reasons = [
-  { icon: ChooseIcon1, label: "Des ingrédients de qualité" },
+  { icon: ChooseIcon1, label: "Ingrédients de qualité" },
   { icon: ChooseIcon2, label: "Cocktails haut de gamme" },
   { icon: ChooseIcon3, label: "10 ans d'expérience" },
   { icon: ChooseIcon4, label: "Service personnalisé" },
@@ -36,8 +36,8 @@ const ChooseUs = () => {
               <Image
                 src={item.icon}
                 alt={item.label}
-                width={128}
-                height={128}
+                width={160}
+                height={160}
                 className="opacity-90 group-hover:opacity-100 transition-opacity duration-300"
               />
               <h3
